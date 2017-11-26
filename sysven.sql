@@ -211,7 +211,7 @@ ALTER TABLE `sales`
 --
 -- Indices de la tabla `sales_has_products`
 --
-ALTER TABLE `sales_has_products`
+ALTER TABLE sales_details
   ADD PRIMARY KEY (`id`,`sales_num_sale`,`products_id`),
   ADD KEY `fk_sales_has_products_sales_idx` (`sales_num_sale`),
   ADD KEY `fk_sales_has_products_products1_idx` (`products_id`);
@@ -259,7 +259,7 @@ ALTER TABLE `sales`
 --
 -- AUTO_INCREMENT de la tabla `sales_has_products`
 --
-ALTER TABLE `sales_has_products`
+ALTER TABLE sales_details
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
@@ -300,7 +300,7 @@ ALTER TABLE `sales`
 --
 -- Filtros para la tabla `sales_has_products`
 --
-ALTER TABLE `sales_has_products`
+ALTER TABLE sales_details
   ADD CONSTRAINT `fk_sales_has_products_products1` FOREIGN KEY (`products_id`) REFERENCES `products` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_sales_has_products_sales` FOREIGN KEY (`sales_num_sale`) REFERENCES `sales` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 COMMIT;
