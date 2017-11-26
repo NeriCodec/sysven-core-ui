@@ -160,7 +160,7 @@ ALTER TABLE `product_inputs_use`
 -- Indices de la tabla `sales`
 --
 ALTER TABLE `sales`
-  ADD PRIMARY KEY (`id`,`users_id`),
+  ADD PRIMARY KEY (id,`users_id`),
   ADD KEY `fk_sales_users1_idx` (`users_id`);
 
 --

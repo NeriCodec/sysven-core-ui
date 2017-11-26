@@ -33,13 +33,4 @@ class SaleDetailTest extends TestCase
 
         $this->assertTrue($success, true);
     }
-
-    public function test_obtenerVentasDeUnDetalleDeVentas()
-    {
-        $saleDetailUseCase = new SaleDetailUseCase(new SaleDetailRepository());
-
-        $sales = $saleDetailUseCase->getSaleDetailsById(1);
-
-        //dd($sales);
-    }
 }

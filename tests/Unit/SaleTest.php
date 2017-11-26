@@ -29,6 +29,20 @@ class SaleTest extends TestCase
 
         $success = $saleUseCase->generateSale($entity);
 
-        $this->assertTrue($success, true);
+        $this->assertTrue(true, $success);
+    }
+
+    /**
+     * Prueba para obtener los detalles de venta, de una venta realizada
+     *
+     * @return void
+     */
+    public function test_obtenerDetallesDeVenta()
+    {
+        $saleUseCase = new SaleUseCase(new SaleRepository());
+
+        $salesDetails = $saleUseCase->getAllSaleDetailById(1);
+
+        $this->assertEquals(4, count($salesDetails));
     }
 }

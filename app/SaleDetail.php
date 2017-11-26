@@ -11,14 +11,4 @@ class SaleDetail extends Model
     protected $primaryKey = 'id';
 
     public $timestamps = false;
-
-    public function sale()
-    {
-        return $this->belongsTo('App\Sale');
-    }
-
-    public function product()
-    {
-        return $this->belongsTo('App\Product');
-    }
 }

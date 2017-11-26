@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: DELL
- * Date: 22/11/2017
- * Time: 10:50 PM
- */
 
 namespace App\src\Common\Interfaces;
 
@@ -20,4 +14,6 @@ interface ISaleRepository
     public function canceledSale(SaleEntity $entity);
 
     public function getAllSaleByDate($date_start, $date_end);
+
+    public function getAllSaleDetailById($sale_id);
 }

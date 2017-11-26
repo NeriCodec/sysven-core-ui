@@ -54,4 +54,11 @@ class SaleUseCase implements ISaleRepository
     {
         // TODO: Implement getAllSaleByDate() method.
     }
+
+    public function getAllSaleDetailById($sale_id)
+    {
+        return $this->saleRepository->getAllSaleDetailById($sale_id);
+    }
+
+
 }
