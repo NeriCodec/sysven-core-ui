@@ -23,12 +23,23 @@ class SaleDetailTest extends TestCase
         $saleDetail = factory(App\SaleDetail::class)->make();
 
         $saleDetailEntity = new SaleDetailEntity(
-            $saleDetail->sales_num_sale,
-            $saleDetail->products_id
+            $saleDetail->sales_id,
+            $saleDetail->products_id,
+            $saleDetail->quantity,
+            $saleDetail->subtotal
         );
 
         $success = $saleDetailUseCase->registerSaleDatail($saleDetailEntity);
 
         $this->assertTrue($success, true);
+    }
+
+    public function test_obtenerVentasDeUnDetalleDeVentas()
+    {
+        $saleDetailUseCase = new SaleDetailUseCase(new SaleDetailRepository());
+
+        $sales = $saleDetailUseCase->getSaleDetailsById(1);
+
+        //dd($sales);
     }
 }

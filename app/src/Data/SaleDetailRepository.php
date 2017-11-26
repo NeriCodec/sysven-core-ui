@@ -2,7 +2,6 @@
 
 namespace App\src\Data;
 
-
 use App\SaleDetail;
 use App\src\Common\Entities\SaleDetailEntity;
 use App\src\Common\Interfaces\ISaleDetailRepository;
@@ -13,10 +12,20 @@ class SaleDetailRepository implements ISaleDetailRepository
     {
         $saleDetail = new SaleDetail;
 
-        $saleDetail->sales_num_sale = $saleDetailEntity->getSaleNumSale();
+        $saleDetail->sales_id    = $saleDetailEntity->getSalesId();
         $saleDetail->products_id = $saleDetailEntity->getProductsId();
+        $saleDetail->quantity    = $saleDetailEntity->getQuantity();
+        $saleDetail->subtotal    = $saleDetailEntity->getSubtotal();
 
         return $saleDetail->save();
     }
 
+    public function getSaleDetailsById($id)
+    {
+        $saleDetail = new SaleDetail;
+        $products   = $saleDetail->product()->find($id);
+        $sales      = $saleDetail->sale()->find($id);
+
+        return $sales;
+    }
 }

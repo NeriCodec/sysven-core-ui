@@ -24,7 +24,7 @@ class ProductInputEntity
      */
     public function __construct($name, $measure)
     {
-        $this->name = $name;
+        $this->name    = $name;
         $this->measure = $measure;
     }
 

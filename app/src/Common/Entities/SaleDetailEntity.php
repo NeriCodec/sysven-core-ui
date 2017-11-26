@@ -7,8 +7,8 @@ class SaleDetailEntity
 {
     /**
      * @var $sale_num_sale
-    */
-    private $sale_num_sale;
+     */
+    private $sales_id;
 
     /**
      * @var $sale_num_sale
@@ -16,22 +16,37 @@ class SaleDetailEntity
     private $products_id;
 
     /**
-     * SaleDetailEntity constructor.
-     * @param $sale_num_sale
-     * @param $products_id
+     * Cantidad de productos
+     * @var $quantity
      */
-    public function __construct($sale_num_sale, $products_id)
+    private $quantity;
+
+    /** Subtotal de multiplicacion de quantity * product.price
+     * @var $subtotal
+     */
+    private $subtotal;
+
+    /**
+     * SaleDetailEntity constructor.
+     * @param $sales_id
+     * @param $products_id
+     * @param $quantity
+     * @param $subtotal
+     */
+    public function __construct($sales_id, $products_id, $quantity, $subtotal)
     {
-        $this->sale_num_sale = $sale_num_sale;
+        $this->sales_id    = $sales_id;
         $this->products_id = $products_id;
+        $this->quantity    = $quantity;
+        $this->subtotal    = $subtotal;
     }
 
     /**
      * @return int
      */
-    public function getSaleNumSale()
+    public function getSalesId()
     {
-        return $this->sale_num_sale;
+        return $this->sales_id;
     }
 
     /**
@@ -40,5 +55,21 @@ class SaleDetailEntity
     public function getProductsId()
     {
         return $this->products_id;
+    }
+
+    /**
+     * @return int
+     */
+    public function getQuantity()
+    {
+        return $this->quantity;
+    }
+
+    /**
+     * @return double
+     */
+    public function getSubtotal()
+    {
+        return $this->subtotal;
     }
 }

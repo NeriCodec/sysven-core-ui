@@ -13,8 +13,8 @@ class UserRepository implements IUserRepository
     {
         $user = new User;
 
-        $user->user = $userEntity->getUser();
-        $user->password = $userEntity->getPassword();
+        $user->user       = $userEntity->getUser();
+        $user->password   = $userEntity->getPassword();
         $user->created_at = $userEntity->getCreatedAt();
 
         return $user->save();

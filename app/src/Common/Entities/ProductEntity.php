@@ -28,7 +28,7 @@ class ProductEntity
      */
     public function __construct($name, $price)
     {
-        $this->name = $name;
+        $this->name  = $name;
         $this->price = $price;
     }
 

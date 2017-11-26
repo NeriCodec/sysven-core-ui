@@ -29,7 +29,7 @@ class SupplieEntity
      */
     public function __construct($name, $address)
     {
-        $this->name = $name;
+        $this->name    = $name;
         $this->address = $address;
     }
 

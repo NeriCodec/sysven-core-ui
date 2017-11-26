@@ -5,57 +5,55 @@ namespace App\src\Common\Entities;
 
 class SaleEntity
 {
-    public $num_articles;
+    /**
+     * @var $total
+     */
     public $total;
-    public $detail;
+
+    /**
+     * @var $created_at
+     */
+    public $created_at;
+
+    /**
+     * @var $user_id
+     */
     public $user_id;
 
     /**
      * SaleEntity constructor.
-     * @param $num_sale
-     * @param $num_articles
      * @param $total
+     * @param $created_at
+     * @param $user_id
      */
-    public function __construct($num_articles, $total, $detail, $user_id)
+    public function __construct($total, $created_at, $user_id)
     {
-        $this->num_articles = $num_articles;
-        $this->total = $total;
-        $this->detail = $detail;
-        $this->user_id = $user_id;
+        $this->total      = $total;
+        $this->created_at = $created_at;
+        $this->user_id    = $user_id;
     }
 
     /**
-     * @return mixed
-     */
-    public function getUserId()
-    {
-        return $this->user_id;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getDetail()
-    {
-        return $this->detail;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getNumArticles()
-    {
-        return $this->num_articles;
-    }
-
-    /**
-     * @return mixed
+     * @return double
      */
     public function getTotal()
     {
         return $this->total;
     }
 
+    /**
+     * @return DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->created_at;
+    }
 
-
+    /**
+     * @return int
+     */
+    public function getUserId()
+    {
+        return $this->user_id;
+    }
 }

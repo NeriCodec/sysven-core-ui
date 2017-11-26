@@ -22,9 +22,8 @@ class SaleTest extends TestCase
         $sale = factory(App\Sale::class)->make();
 
         $entity = new SaleEntity(
-            $sale->num_sale,
-            $sale->num_articles,
-            $sale->detail,
+            $sale->total,
+            $sale->created_at,
             $sale->users_id
         );
 

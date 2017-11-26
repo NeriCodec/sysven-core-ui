@@ -13,10 +13,9 @@ class ShoppingCart
 
     public function __construct($cart)
     {
-        if($cart)
-        {
-            $this->cart = $cart;
-            $this->totalPrice = $cart->totalPrice;
+        if ($cart) {
+            $this->cart             = $cart;
+            $this->totalPrice       = $cart->totalPrice;
             $this->quantityProducts = $cart->quantityProducts;
         }
     }
@@ -30,16 +29,14 @@ class ShoppingCart
             'price' => $productShoppingCart->getPrice()
         ];
 
-        if($this->cart)
-        {
-            if (array_key_exists($productShoppingCart->getSlug(), $this->cart))
-            {
+        if ($this->cart) {
+            if (array_key_exists($productShoppingCart->getSlug(), $this->cart)) {
                 $stored = $this->cart[$productShoppingCart->getSlug()];
             }
         }
 
         $stored['quantityStored']++;
-        $stored['priceStored'] = $productShoppingCart->getPrice() * $stored['quantityStored'];
+        $stored['priceStored']                       = $productShoppingCart->getPrice() * $stored['quantityStored'];
         $this->cart[$productShoppingCart->getSlug()] = $stored;
 
         $this->quantityProducts++;

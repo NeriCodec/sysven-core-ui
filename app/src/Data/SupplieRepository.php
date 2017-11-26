@@ -14,7 +14,7 @@ class SupplieRepository implements ISupplieRepository
     {
         $supplie = new Supplie;
 
-        $supplie->name = $supplieEntity->getName();
+        $supplie->name    = $supplieEntity->getName();
         $supplie->address = $supplieEntity->getAddress();
 
         return $supplie->save();

@@ -46,10 +46,10 @@ class ProductInputSupplieEntity
      */
     public function __construct($name, $price, $amount, $measure, $supplie_id)
     {
-        $this->name = $name;
-        $this->price = $price;
-        $this->amount = $amount;
-        $this->measure = $measure;
+        $this->name       = $name;
+        $this->price      = $price;
+        $this->amount     = $amount;
+        $this->measure    = $measure;
         $this->supplie_id = $supplie_id;
     }
 

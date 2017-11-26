@@ -19,9 +19,14 @@ class SaleDetailUseCase implements ISaleDetailRepository
         $this->saleDetailRepository = $saleDetailRepository;
     }
 
-
     public function registerSaleDatail(SaleDetailEntity $saleDetailEntity)
     {
         return $this->saleDetailRepository->registerSaleDatail($saleDetailEntity);
     }
+
+    public function getSaleDetailsById($id)
+    {
+        return $this->saleDetailRepository->getSaleDetailsById($id);
+    }
+
 }

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 25-11-2017 a las 21:10:02
+-- Tiempo de generación: 26-11-2017 a las 03:12:39
 -- Versión del servidor: 10.1.26-MariaDB
 -- Versión de PHP: 7.1.9
 
@@ -34,15 +34,6 @@ CREATE TABLE `products` (
   `price` double DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Volcado de datos para la tabla `products`
---
-
-INSERT INTO `products` (`id`, `name`, `price`) VALUES
-(1, 'hot dog', 18),
-(2, 'Mrs. Ashleigh Dietrich Sr.', 169),
-(3, 'Lime', 165);
-
 -- --------------------------------------------------------
 
 --
@@ -57,14 +48,6 @@ CREATE TABLE `products_inputs_supplies` (
   `measure` varchar(45) DEFAULT NULL,
   `supplies_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `products_inputs_supplies`
---
-
-INSERT INTO `products_inputs_supplies` (`id`, `name`, `price`, `amount`, `measure`, `supplies_id`) VALUES
-(1, 'Bote de helado', 350, 2, 'onzas', 1),
-(2, 'Mrs. Hilma Lang', 674, 39, 'Aliquam.', 1);
 
 -- --------------------------------------------------------
 
@@ -98,20 +81,10 @@ CREATE TABLE `product_inputs_use` (
 
 CREATE TABLE `sales` (
   `id` int(11) NOT NULL,
-  `num_articles` double DEFAULT NULL,
   `total` double DEFAULT NULL,
-  `detail` text,
-  `users_id` int(11) NOT NULL,
-  `num_sale` int(11) DEFAULT NULL
+  `created_at` datetime DEFAULT NULL,
+  `users_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `sales`
---
-
-INSERT INTO `sales` (`id`, `num_articles`, `total`, `detail`, `users_id`, `num_sale`) VALUES
-(1, 23848, 80259, 'Et fugiat natus est voluptates veritatis. Est debitis cum enim. Natus aut eligendi excepturi labore.', 1, NULL),
-(2, 565, 943560553, 'Blanditiis reiciendis dignissimos qui autem. Aut repudiandae aut fuga. Adipisci iure corporis qui qui officia.', 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -121,8 +94,10 @@ INSERT INTO `sales` (`id`, `num_articles`, `total`, `detail`, `users_id`, `num_s
 
 CREATE TABLE `sales_has_products` (
   `id` int(11) NOT NULL,
-  `sales_num_sale` int(11) NOT NULL,
-  `products_id` int(11) NOT NULL
+  `sales_id` int(11) NOT NULL,
+  `products_id` int(11) NOT NULL,
+  `cantidad` int(11) DEFAULT NULL,
+  `subtotal` double DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -137,14 +112,6 @@ CREATE TABLE `supplies` (
   `address` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Volcado de datos para la tabla `supplies`
---
-
-INSERT INTO `supplies` (`id`, `name`, `address`) VALUES
-(1, 'Jasinto', 'Lago Winnipef 401, Ciudad de México'),
-(2, 'Prof. Wilhelmine Buckridge III', '3027 Lesly Estate\nPort Jabari, DC 80798');
-
 -- --------------------------------------------------------
 
 --
@@ -154,21 +121,9 @@ INSERT INTO `supplies` (`id`, `name`, `address`) VALUES
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `user` varchar(45) DEFAULT NULL,
-  `password` varchar(255) DEFAULT NULL,
+  `password` varchar(45) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `users`
---
-
-INSERT INTO `users` (`id`, `user`, `password`, `created_at`) VALUES
-(1, 'admin', '12345678', '2017-11-25 18:11:35'),
-(2, 'Jeanne West Jr.', '$2y$10$IrDyDxrOeY8kfM4uU/DCz.p.PAATnwoBJoZskh88B2KRjXNM9zR/i', NULL),
-(3, 'Carlie Heathcote', '$2y$10$ARdlnYaHb7p9dh9Puh7YzuggH3TWC7ldF7QxopnDNf5GXGUc4RGNa', NULL),
-(4, 'Emerson Hermiston', '$2y$10$QDx2UWJT9J6Sm/6CXnid6ON6dh9ziEq4oIbaHJF7z9WcU8YirqlvK', '1994-05-15 22:41:33'),
-(5, 'juston58', '$2y$10$OxO97rTvG8egdVFUybKHDusP3qpo/KbP2TrgQ.Q77oVGHXcDLDrKW', '2009-01-19 16:36:32'),
-(6, 'xrath', '$2y$10$Cy0s9HNmdmqXny2/LmvQ6uJfZV3s0RrCemq0PuBEfqP7Y/2NaXGEi', '1995-09-16 13:26:46');
 
 --
 -- Índices para tablas volcadas
@@ -211,9 +166,9 @@ ALTER TABLE `sales`
 --
 -- Indices de la tabla `sales_has_products`
 --
-ALTER TABLE sales_details
-  ADD PRIMARY KEY (`id`,`sales_num_sale`,`products_id`),
-  ADD KEY `fk_sales_has_products_sales_idx` (`sales_num_sale`),
+ALTER TABLE `sales_has_products`
+  ADD PRIMARY KEY (`id`,`sales_id`,`products_id`),
+  ADD KEY `fk_sales_has_products_sales_idx` (`sales_id`),
   ADD KEY `fk_sales_has_products_products1_idx` (`products_id`);
 
 --
@@ -236,13 +191,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT de la tabla `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `products_inputs_supplies`
 --
 ALTER TABLE `products_inputs_supplies`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `product_inputs`
@@ -254,25 +209,25 @@ ALTER TABLE `product_inputs`
 -- AUTO_INCREMENT de la tabla `sales`
 --
 ALTER TABLE `sales`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `sales_has_products`
 --
-ALTER TABLE sales_details
+ALTER TABLE `sales_has_products`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `supplies`
 --
 ALTER TABLE `supplies`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Restricciones para tablas volcadas
@@ -300,9 +255,9 @@ ALTER TABLE `sales`
 --
 -- Filtros para la tabla `sales_has_products`
 --
-ALTER TABLE sales_details
+ALTER TABLE `sales_has_products`
   ADD CONSTRAINT `fk_sales_has_products_products1` FOREIGN KEY (`products_id`) REFERENCES `products` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_sales_has_products_sales` FOREIGN KEY (`sales_num_sale`) REFERENCES `sales` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_sales_has_products_sales` FOREIGN KEY (`sales_id`) REFERENCES `sales` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

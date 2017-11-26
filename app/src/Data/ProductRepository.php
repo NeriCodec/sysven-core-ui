@@ -20,7 +20,7 @@ class ProductRepository implements IProductRepository
     {
         $product = new Product;
 
-        $product->name = $productEntity->getName();
+        $product->name  = $productEntity->getName();
         $product->price = $productEntity->getPrice();
 
         return $product->save();

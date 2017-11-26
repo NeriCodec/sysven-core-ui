@@ -13,7 +13,7 @@ class ProductInputRepository implements IProductInputRepository
     {
         $productInput = new ProductInput;
 
-        $productInput->name = $productInputEntity->getName();
+        $productInput->name    = $productInputEntity->getName();
         $productInput->measure = $productInputEntity->getMeasure();
 
         return $productInput->save();

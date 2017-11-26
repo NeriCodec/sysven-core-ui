@@ -23,8 +23,8 @@ class UserEntity
      */
     public function __construct($user, $password, $created_at)
     {
-        $this->user = $user;
-        $this->password = $password;
+        $this->user       = $user;
+        $this->password   = $password;
         $this->created_at = $created_at;
     }
 
@@ -51,8 +51,6 @@ class UserEntity
     {
         return $this->created_at;
     }
-
-
 
 
 }

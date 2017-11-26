@@ -34,9 +34,9 @@ class ProductShoppingCartEntity
      */
     public function __construct($slug, $name, $price, $quantity)
     {
-        $this->slug = $slug;
-        $this->name = $name;
-        $this->price = $price;
+        $this->slug     = $slug;
+        $this->name     = $name;
+        $this->price    = $price;
         $this->quantity = $quantity;
     }
 
