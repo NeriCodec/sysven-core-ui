@@ -41,7 +41,7 @@ class ProductUseCase implements IProductRepository
      */
     public function updateProduct(ProductEntity $productEntity, $id)
     {
-        // TODO: Implement updateProduct() method.
+        return $this->productRepository->updateProduct($productEntity, $id);
     }
 
     /**
@@ -50,6 +50,13 @@ class ProductUseCase implements IProductRepository
      */
     public function deleteProduct($id)
     {
-        // TODO: Implement deleteProduct() method.
+        return $this->productRepository->deleteProduct($id);
     }
+
+    public function getAllProducts()
+    {
+        return $this->productRepository->getAllProducts();
+    }
+
+
 }

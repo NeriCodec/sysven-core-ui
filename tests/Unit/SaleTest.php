@@ -33,7 +33,7 @@ class SaleTest extends TestCase
     }
 
     /**
-     * Prueba para obtener los detalles de venta, de una venta realizada
+     * Prueba para obtener los detalles de venta; de una venta realizada
      *
      * @return void
      */

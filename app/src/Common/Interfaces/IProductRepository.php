@@ -12,4 +12,6 @@ interface IProductRepository
     public function updateProduct(ProductEntity $productEntity, $id);
 
     public function deleteProduct($id);
+
+    public function getAllProducts();
 }

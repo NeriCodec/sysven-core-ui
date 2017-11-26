@@ -37,4 +37,13 @@ class ProductTest extends TestCase
 
         $this->assertEquals($success, true);
     }
+
+    public function test_obtenerTodosLosProductos()
+    {
+        $productUseCase = new ProductUseCase(new ProductRepository());
+
+        $products = $productUseCase->getAllProducts();
+
+        $this->assertEquals(7,count($products));
+    }
 }

@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Dux-044
- * Date: 23/11/2017
- * Time: 02:43 PM
- */
 
 namespace App\src\Data;
 
@@ -12,6 +6,9 @@ namespace App\src\Data;
 use App\Product;
 use App\src\Common\Entities\ProductEntity;
 use App\src\Common\Interfaces\IProductRepository;
+use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\DB;
+use Mockery\Exception;
 
 class ProductRepository implements IProductRepository
 {
@@ -23,16 +20,50 @@ class ProductRepository implements IProductRepository
         $product->name  = $productEntity->getName();
         $product->price = $productEntity->getPrice();
 
-        return $product->save();
+        try {
+            $success = $product->save();
+        } catch (QueryException $error) {
+            $success = false;
+            //throw new Exception(':: [Error al guardar el producto] :: ' . $error->getMessage());
+        }
+
+        return $success;
     }
 
     public function updateProduct(ProductEntity $productEntity, $id)
     {
-        // TODO: Implement updateProduct() method.
+        $product = Product::find($id);
+        $product->name  = $productEntity->getName();
+        $product->price = $productEntity->getPrice();
+
+        try {
+            $success = $product->save();
+        } catch (QueryException $error) {
+            $success = false;
+            //throw new Exception(':: [Error al actualizar el producto] :: ' . $error->getMessage());
+        }
+
+        return $success;
     }
 
     public function deleteProduct($id)
     {
-        // TODO: Implement deleteProduct() method.
+        $product = Product::find($id);
+
+        try {
+            $success = $product->delete();
+        } catch (QueryException $error) {
+            $success = false;
+            //throw new Exception(':: [Error al eliminar el producto] :: ' . $error->getMessage());
+        }
+
+        return $success;
     }
+
+    public function getAllProducts()
+    {
+        return DB::table('products')->get();
+    }
+
+
 }
