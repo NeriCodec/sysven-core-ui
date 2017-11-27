@@ -116,6 +116,7 @@ class ProductRepository implements IProductRepository
 //  COUNT(product_inputs_use.quantity) as num_product_inputs
 //FROM ((product_inputs_use
 //  INNER JOIN products ON products.id = product_inputs_use.products_id));
+        // TODO: Revisar este metodo
         try {
             $products = DB::table('product_inputs_use')
                           ->distinct()
