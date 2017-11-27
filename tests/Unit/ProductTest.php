@@ -33,7 +33,18 @@ class ProductTest extends TestCase
             $product->price
         );
 
-        $success = $productUseCase->registerProduct($productEntity);
+        $inputs = [
+            0 => [
+                'product_input' => 'Unidad de pajillas',
+                'quantity' => 1
+            ],
+            1 => [
+                'product_input' => 'Onzas de Hielo',
+                'quantity' => 14
+            ]
+        ];
+
+        $success = $productUseCase->registerProduct($productEntity, $inputs);
 
         $this->assertEquals($success, true);
     }
@@ -44,6 +55,6 @@ class ProductTest extends TestCase
 
         $products = $productUseCase->getAllProducts();
 
-        $this->assertEquals(7,count($products));
+        $this->assertEquals(7, count($products));
     }
 }

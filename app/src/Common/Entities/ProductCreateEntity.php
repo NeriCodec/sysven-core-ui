@@ -5,40 +5,54 @@ namespace App\src\Common\Entities;
 class ProductCreateEntity
 {
     /**
-     * @var $product_inputs_id
+     * @var $products_id
      */
-    public $product_inputs_id;
+    private $products_id;
 
     /**
-     * @var $producs_id
+     * @var $product_input
      */
-    public $producs_id;
+    private $producto_input;
+
+    /**
+     * @var $quantity
+     */
+    private $quantity;
 
     /**
      * ProductCreateEntity constructor.
-     * @param $product_inputs_id
-     * @param $producs_id
+     * @param $products_id
+     * @param $producto_input
+     * @param $quantity
      */
-    public function __construct($product_inputs_id, $producs_id)
+    public function __construct($products_id, $producto_input, $quantity)
     {
-        $this->product_inputs_id = $product_inputs_id;
-        $this->producs_id        = $producs_id;
+        $this->products_id    = $products_id;
+        $this->producto_input = $producto_input;
+        $this->quantity       = $quantity;
     }
 
     /**
      * @return int
      */
-    public function getProductInputsId()
+    public function getProductsId()
     {
-        return $this->product_inputs_id;
+        return $this->products_id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getProductoInput()
+    {
+        return $this->producto_input;
     }
 
     /**
      * @return int
      */
-    public function getProducsId()
+    public function getQuantity()
     {
-        return $this->producs_id;
+        return $this->quantity;
     }
-
 }

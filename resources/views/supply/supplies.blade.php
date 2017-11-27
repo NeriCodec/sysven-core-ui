@@ -14,38 +14,36 @@
             <div class="col-sm-12">
                 <div class="card">
                     <div class="card-block">
-                        <h4 class="card-title">Mis productos
-                            <button type="button" class="btn pull-right hidden-sm-down btn-success" data-toggle="modal" data-target="#add-product-modal">
-                                Agregar Producto
+                        <h4 class="card-title">Mis proveedores
+                            <button type="button" class="btn pull-right hidden-sm-down btn-success" data-toggle="modal" data-target="#register-supply-modal">
+                                Agregar Proveedor
                             </button>
-                            @include('product.register-product')
+                            @include('supply.register-supply')
                         </h4>
-                        <h6 class="card-subtitle">Puedes buscar un producto: <code>ingresa el nombre del producto</code></h6>
+                        <h6 class="card-subtitle">Puedes buscar un proveedor: <code>ingresa el nombre del proveedor</code></h6>
                         <div class="table-responsive">
                             <table class="table">
                                 <thead>
                                 <tr>
-                                    <th>Nombre del producto</th>
-                                    <th>Precio</th>
-                                    <th>Insumos</th>
+                                    <th>Nombre del proveedor</th>
+                                    <th>Direccion</th>
                                     <th>Editar</th>
                                     <th>Eliminar</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($products as $product)
+                                @foreach($supplies as $supply)
                                     <tr>
-                                        <td>{{ $product->name }}</td>
-                                        <td>$ {{ $product->price }}</td>
-                                        <td>Insumo</td>
+                                        <td>{{ $supply->name }}</td>
+                                        <td>{{ $supply->address }}</td>
                                         <td>
-                                            <button type="button" class="btn hidden-sm-down btn-success" data-toggle="modal" data-target="#update-product-{{ $product->id }}">
+                                            <button type="button" class="btn hidden-sm-down btn-success" data-toggle="modal" data-target="#update-supply-{{ $supply->id }}">
                                                 <span class="fa fa-arrow-up"></span>
                                             </button>
-                                            @include('product.update-product')
+                                            @include('supply.update-supply')
                                         </td>
                                         <td>
-                                            <form action="{{ route('delete-product', ['id' => $product->id]) }}" method="post">
+                                            <form action="{{ route('delete-supply', ['id' => $supply->id]) }}" method="post">
                                                 {{ csrf_field() }}
                                                 <button type="submit" class="btn hidden-sm-down btn-danger">
                                                     <span class="fa fa-window-close"></span>

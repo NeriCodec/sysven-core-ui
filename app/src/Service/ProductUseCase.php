@@ -28,10 +28,16 @@ class ProductUseCase implements IProductRepository
     /**
      * registerProduct function.
      * @param $productEntity
+     * @param $inputs array
+     * @return boolean
      */
-    public function registerProduct(ProductEntity $productEntity)
+    public function registerProduct(ProductEntity $productEntity, $inputs)
     {
-        return $this->productRepository->registerProduct($productEntity);
+        if (count($inputs) <= 0) {
+            return false;
+        }
+
+        return $this->productRepository->registerProduct($productEntity, $inputs);
     }
 
     /**
@@ -52,6 +58,12 @@ class ProductUseCase implements IProductRepository
     {
         return $this->productRepository->deleteProduct($id);
     }
+
+    public function getProductById($id)
+    {
+        return $this->productRepository->getProductById($id);
+    }
+
 
     public function getAllProducts()
     {

@@ -4,6 +4,7 @@ namespace App\src\Service;
 
 use App\src\Common\Entities\ProductCreateEntity;
 use App\src\Common\Interfaces\IProductCreateRepository;
+use App\src\Data\ProductRepository;
 
 class ProductCreateUseCase implements IProductCreateRepository
 {

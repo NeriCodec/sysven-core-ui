@@ -3,9 +3,9 @@
 namespace Tests\Unit;
 
 use App;
-use App\src\Common\Entities\SupplieEntity;
-use App\src\Data\SupplieRepository;
-use App\src\Service\SupplieUseCase;
+use App\src\Common\Entities\SupplyEntity;
+use App\src\Data\SupplyRepository;
+use App\src\Service\SupplyUseCase;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -19,16 +19,16 @@ class SupplieTest extends TestCase
     public function test_registrar_un_proveedor_a_database()
     {
 
-        $supplieUseCase = new SupplieUseCase(new SupplieRepository());
+        $supplieUseCase = new SupplyUseCase(new SupplyRepository());
 
-        $supplie = factory(App\Supplie::class)->make();
+        $supplie = factory(App\Supply::class)->make();
 
-        $supplieEntity = new SupplieEntity(
+        $supplieEntity = new SupplyEntity(
             $supplie->name,
             $supplie->address
         );
 
-        $success = $supplieUseCase->registerSupplie($supplieEntity);
+        $success = $supplieUseCase->registerSupply($supplieEntity);
 
         $this->assertEquals($success, true);
     }

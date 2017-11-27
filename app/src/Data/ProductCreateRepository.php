@@ -12,8 +12,9 @@ class ProductCreateRepository implements IProductCreateRepository
     {
         $productCreate = new ProductCreate;
 
-        $productCreate->product_inputs_id = $productCreateEntity->getProductInputsId();
-        $productCreate->products_id       = $productCreateEntity->getProducsId();
+        $productCreate->products_id   = $productCreateEntity->getProductsId();
+        $productCreate->quantity      = $productCreateEntity->getQuantity();
+        $productCreate->product_input = $productCreateEntity->getProductoInput();
 
         return $productCreate->save();
     }

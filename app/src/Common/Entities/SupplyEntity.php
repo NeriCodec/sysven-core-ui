@@ -9,7 +9,7 @@
 namespace App\src\Common\Entities;
 
 
-class SupplieEntity
+class SupplyEntity
 {
 
     /**
@@ -23,7 +23,7 @@ class SupplieEntity
     public $address;
 
     /**
-     * SupplieEntity constructor.
+     * SupplyEntity constructor.
      * @param $name
      * @param $address
      */

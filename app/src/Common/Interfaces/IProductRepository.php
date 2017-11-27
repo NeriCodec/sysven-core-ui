@@ -7,11 +7,13 @@ use App\src\Common\Entities\ProductEntity;
 
 interface IProductRepository
 {
-    public function registerProduct(ProductEntity $productEntity);
+    public function registerProduct(ProductEntity $productEntity, $inputs);
 
     public function updateProduct(ProductEntity $productEntity, $id);
 
     public function deleteProduct($id);
+
+    public function getProductById($id);
 
     public function getAllProducts();
 }
