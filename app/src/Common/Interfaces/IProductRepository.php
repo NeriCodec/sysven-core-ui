@@ -15,5 +15,7 @@ interface IProductRepository
 
     public function getProductById($id);
 
+    public function getAllProductInputs($product_id);
+
     public function getAllProducts();
 }

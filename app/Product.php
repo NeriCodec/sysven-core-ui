@@ -12,4 +12,9 @@ class Product extends Model
 
     public $timestamps = false;
 
+    public function productInputs()
+    {
+        return $this->hasMany(ProductCreate::class);
+    }
+
 }

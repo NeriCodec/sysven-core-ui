@@ -3,24 +3,30 @@
 namespace App\Http\Controllers;
 
 use App\src\Common\Entities\ProductEntity;
+use App\src\Data\ProductInputRepository;
 use App\src\Data\ProductRepository;
+use App\src\Service\ProductInputUseCase;
 use App\src\Service\ProductUseCase;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
     private $productUseCase;
+    private $productInputUseCase;
 
     public function __construct()
     {
-        $this->productUseCase = new ProductUseCase(new ProductRepository());
+        $this->productUseCase      = new ProductUseCase(new ProductRepository());
+        $this->productInputUseCase = new ProductInputUseCase(new ProductInputRepository());
     }
 
     public function showProducts()
     {
-        $products = $this->productUseCase->getAllProducts();
+        $products      = $this->productUseCase->getAllProducts();
+        $productInputs = $this->productInputUseCase->getAllProductInputs();
 
-        return view('product.products')->with('products', $products);
+        return view('product.products')->with('products', $products)
+                                       ->with('productInputs', $productInputs);
     }
 
     public function registerProduct(Request $request)

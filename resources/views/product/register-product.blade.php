@@ -57,11 +57,9 @@
                                         <label class="col-sm-12">Insumos a utilizar</label>
                                         <div class="col-sm-12">
                                             <select class="form-control form-control-line" name="measure" id="measure">
-                                                <option>Hielo Onza(s)</option>
-                                                <option>Pajilla Unidad(es)</option>
-                                                <option>Arroz Gramo(s)</option>
-                                                <option>Azucar Chucharada(s)</option>
-                                                <option>Endulsante Paquete</option>
+                                                @foreach($productInputs as $productInput)
+                                                    <option>{{ $productInput->measure }} de {{ $productInput->name }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
@@ -80,7 +78,7 @@
                                 </div>
                             </div>
                             {{--<textarea class="form-control form-control-line" name="textarea-inputs" id="textarea-inputs"--}}
-                                      {{--rows="5" disabled>--}}
+                            {{--rows="5" disabled>--}}
 
                             {{--</textarea>--}}
                         </div>

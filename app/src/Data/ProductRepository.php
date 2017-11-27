@@ -8,9 +8,9 @@ use App\src\Common\Entities\ProductCreateEntity;
 use App\src\Common\Entities\ProductEntity;
 use App\src\Common\Interfaces\IProductRepository;
 use App\src\Service\ProductCreateUseCase;
-use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
+use Mockery\Exception;
 
 class ProductRepository implements IProductRepository
 {
@@ -93,10 +93,43 @@ class ProductRepository implements IProductRepository
         return $product;
     }
 
+    public function getAllProductInputs($product_id)
+    {
+        try {
+            $product = new Product;
+            $product->productInputs()->where('products_id', '=', $product_id)->get();
+        } catch (QueryException $error) {
+            $product = [];
+            //throw new Exception(':: [Error al eliminar el producto] :: ' . $error->getMessage());
+        }
+
+        return $product;
+    }
+
 
     public function getAllProducts()
     {
-        return DB::table('products')->get();
+//        SELECT DISTINCT
+//  products.id,
+//  products.name,
+//  products.price,
+//  COUNT(product_inputs_use.quantity) as num_product_inputs
+//FROM ((product_inputs_use
+//  INNER JOIN products ON products.id = product_inputs_use.products_id));
+        try {
+            $products = DB::table('product_inputs_use')
+                          ->distinct()
+                          ->select(DB::raw('COUNT(product_inputs_use.quantity) as num_product_inputs, products.id, products.name, products.price'))
+                          ->join('products', 'products.id', '=', 'product_inputs_use.products_id')
+                          ->get();
+        } catch (QueryException $error) {
+            //$products = [];
+            throw new Exception(':: [Error al obtener los productos] :: ' . $error->getMessage());
+        } catch (Exception $exception) {
+            throw new Exception($exception->getMessage());
+        }
+
+        return $products;
     }
 
 

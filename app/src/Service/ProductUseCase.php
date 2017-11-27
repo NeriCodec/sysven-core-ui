@@ -59,12 +59,28 @@ class ProductUseCase implements IProductRepository
         return $this->productRepository->deleteProduct($id);
     }
 
+    /**
+     * getProductById function.
+     * @param $id
+     */
     public function getProductById($id)
     {
         return $this->productRepository->getProductById($id);
     }
 
+    /**
+     * getAllProductInputs function.
+     * @param $product_id
+     */
+    public function getAllProductInputs($product_id)
+    {
+        return $this->productRepository->getAllProductInputs($product_id);
+    }
 
+    /**
+     * getAllProducts function.
+     * @return array
+     */
     public function getAllProducts()
     {
         return $this->productRepository->getAllProducts();
