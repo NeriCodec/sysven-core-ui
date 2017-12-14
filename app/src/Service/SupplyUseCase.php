@@ -5,7 +5,8 @@ namespace App\src\Service;
 use App\src\Common\Entities\SupplyEntity;
 use App\src\Common\Interfaces\ISupplyRepository;
 
-class SupplyUseCase implements ISupplyRepository
+class SupplyUseCase
+    implements ISupplyRepository
 {
     private $supplieRepository;
 
@@ -22,9 +23,9 @@ class SupplyUseCase implements ISupplyRepository
      * registerSupplie function.
      * @param $supplyEntity
      */
-    public function registerSupply(SupplyEntity $supplyEntity)
+    public function create(SupplyEntity $supplyEntity)
     {
-        return $this->supplieRepository->registerSupply($supplyEntity);
+        return $this->supplieRepository->create($supplyEntity);
     }
 
     /**
@@ -32,27 +33,27 @@ class SupplyUseCase implements ISupplyRepository
      * @param $supplyEntity
      * @param $id
      */
-    public function updateSupply(SupplyEntity $supplyEntity, $id)
+    public function update(SupplyEntity $supplyEntity, $id)
     {
-        return $this->supplieRepository->updateSupply($supplyEntity, $id);
+        return $this->supplieRepository->update($supplyEntity, $id);
     }
 
     /**
      * deleteSupplie function.
      * @param $id
      */
-    public function deleteSupply($id)
+    public function delete($id)
     {
-        return $this->supplieRepository->deleteSupply($id);
+        return $this->supplieRepository->delete($id);
     }
 
     /**
      * getAllSupplies function.
      * @return array
      */
-    public function getAllSupplies()
+    public function getAll()
     {
-        return $this->supplieRepository->getAllSupplies();
+        return $this->supplieRepository->getAll();
     }
 
 

@@ -7,11 +7,11 @@ use App\src\Common\Entities\SupplyEntity;
 
 interface ISupplyRepository
 {
-    public function registerSupply(SupplyEntity $supplyEntity);
+    public function create(SupplyEntity $supplyEntity);
 
-    public function updateSupply(SupplyEntity $supplyEntity, $id);
+    public function update(SupplyEntity $supplyEntity, $id);
 
-    public function deleteSupply($id);
+    public function delete($id);
 
-    public function getAllSupplies();
+    public function getAll();
 }

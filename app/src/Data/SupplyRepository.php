@@ -8,9 +8,10 @@ use App\Supply;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
 
-class SupplyRepository implements ISupplyRepository
+class SupplyRepository
+    implements ISupplyRepository
 {
-    public function registerSupply(SupplyEntity $supplyEntity)
+    public function create(SupplyEntity $supplyEntity)
     {
         $supplie = new Supply;
 
@@ -20,7 +21,7 @@ class SupplyRepository implements ISupplyRepository
         return $supplie->save();
     }
 
-    public function updateSupply(SupplyEntity $supplyEntity, $id)
+    public function update(SupplyEntity $supplyEntity, $id)
     {
         $supplie = Supply::find($id);
 
@@ -37,7 +38,7 @@ class SupplyRepository implements ISupplyRepository
         return $success;
     }
 
-    public function deleteSupply($id)
+    public function delete($id)
     {
         $supply = Supply::find($id);
 
@@ -51,7 +52,7 @@ class SupplyRepository implements ISupplyRepository
         return $success;
     }
 
-    public function getAllSupplies()
+    public function getAll()
     {
         return DB::table('supplies')->get();
     }

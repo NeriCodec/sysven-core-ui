@@ -7,7 +7,8 @@ use App\src\Common\Entities\UserEntity;
 use App\src\Common\Interfaces\IUserRepository;
 use App\User;
 
-class UserRepository implements IUserRepository
+class UserRepository
+    implements IUserRepository
 {
     public function registerUser(UserEntity $userEntity)
     {

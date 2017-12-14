@@ -14,6 +14,4 @@ interface ISaleRepository
     public function canceledSale(SaleEntity $entity);
 
     public function getAllSaleByDate($date_start, $date_end);
-
-    public function getAllSaleDetailById($sale_id);
 }

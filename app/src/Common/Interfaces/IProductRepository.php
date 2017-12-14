@@ -2,20 +2,21 @@
 
 namespace App\src\Common\Interfaces;
 
-
 use App\src\Common\Entities\ProductEntity;
 
 interface IProductRepository
 {
-    public function registerProduct(ProductEntity $productEntity, $inputs);
+    public function create(ProductEntity $productEntity);
 
-    public function updateProduct(ProductEntity $productEntity, $id);
+    public function getAll();
 
-    public function deleteProduct($id);
+    public function update(ProductEntity $productEntity);
+
+    public function delete($id);
 
     public function getProductById($id);
 
-    public function getAllProductInputs($product_id);
+    public function getProductByName($productName);
 
-    public function getAllProducts();
+    public function search($productName);
 }

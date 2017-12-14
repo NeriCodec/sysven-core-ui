@@ -12,73 +12,64 @@ use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
 use Mockery\Exception;
 
-class ProductRepository implements IProductRepository
+class ProductRepository
+    implements IProductRepository
 {
 
-    public function registerProduct(ProductEntity $productEntity, $inputs)
+    public function create(ProductEntity $productEntity)
     {
-        $product = new Product;
-
-        $product->name  = $productEntity->getName();
-        $product->price = $productEntity->getPrice();
-
         try {
-            $success = $product->save();
+            $product  = new Product;
+            $response = $this->registerProductWithInputs($product, $productEntity);
         } catch (QueryException $error) {
-            $success = false;
-            //throw new Exception(':: [Error al guardar el producto] :: ' . $error->getMessage());
+            $response = [];
+            //throw new Exception(':: [Error al obtener los productos] :: ' . $error->getMessage());
+        } catch (Exception $exception) {
+            throw new Exception($exception->getMessage());
         }
 
-        if ($success) {
-            try {
-                $productCreateRepository = new ProductCreateUseCase(new ProductCreateRepository());
-                foreach ($inputs as $input) {
-                    $productCreate = new ProductCreateEntity(
-                        $product->id,
-                        $input['product_input'],
-                        $input['quantity']
-                    );
 
-                    $success = $productCreateRepository->registerProductCreate($productCreate);
-                }
+        return $response;
+    }
+
+    public function update(ProductEntity $productEntity)
+    {
+        $product = Product::find($productEntity->getId());
+
+        return $this->registerProductWithInputs($product, $productEntity);
+    }
+
+    public function delete($id)
+    {
+        $productCreateRepository = new ProductCreateUseCase(new ProductCreateRepository());
+
+        $success = $productCreateRepository->delete($id);
+
+        if ($success) {
+            $product = Product::find($id);
+            try {
+                $success = $product->delete();
             } catch (QueryException $error) {
                 $success = false;
-                $this->deleteProduct($product->id);
-                //throw new Exception(':: [Error al guardar el producto] :: ' . $error->getMessage());
+                //throw new Exception(':: [Error al eliminar el producto] :: ' . $error->getMessage());
             }
         }
 
         return $success;
     }
 
-    public function updateProduct(ProductEntity $productEntity, $id)
+    public function getAll()
     {
-        $product        = Product::find($id);
-        $product->name  = $productEntity->getName();
-        $product->price = $productEntity->getPrice();
-
         try {
-            $success = $product->save();
+            $products = Product::all();
         } catch (QueryException $error) {
-            $success = false;
-            //throw new Exception(':: [Error al actualizar el producto] :: ' . $error->getMessage());
+            $products = [];
+            //throw new Exception(':: [Error al obtener los productos] :: ' . $error->getMessage());
+        } catch (Exception $exception) {
+            throw new Exception($exception->getMessage());
         }
 
-        return $success;
-    }
-
-    public function deleteProduct($id)
-    {
-        $product = Product::find($id);
-
-        try {
-            $success = $product->delete();
-        } catch (QueryException $error) {
-            $success = false;
-            //throw new Exception(':: [Error al eliminar el producto] :: ' . $error->getMessage());
-        }
-
-        return $success;
+        return $products;
     }
 
     public function getProductById($id)
@@ -93,39 +84,77 @@ class ProductRepository implements IProductRepository
         return $product;
     }
 
-    public function getAllProductInputs($product_id)
+    public function getProductByName($productName)
     {
+        $productEntity = null;
         try {
-            $product = new Product;
-            $product->productInputs()->where('products_id', '=', $product_id)->get();
+            $product          = Product::all()->where('name', '=', $productName)->last();
+            $productSerialize = $product->jsonSerialize();
+
+            $productEntity = new ProductEntity(
+                $productSerialize["id"],
+                $productSerialize["name"],
+                $productSerialize["price"],
+                null
+            );
+
         } catch (QueryException $error) {
             $product = [];
             //throw new Exception(':: [Error al eliminar el producto] :: ' . $error->getMessage());
         }
 
-        return $product;
+        return $productEntity;
     }
 
 
-    public function getAllProducts()
+    private function registerProductWithInputs($product, $productEntity)
     {
-//        SELECT DISTINCT
-//  products.id,
-//  products.name,
-//  products.price,
-//  COUNT(product_inputs_use.quantity) as num_product_inputs
-//FROM ((product_inputs_use
-//  INNER JOIN products ON products.id = product_inputs_use.products_id));
-        // TODO: Revisar este metodo
+        $product->name  = $productEntity->getName();
+        $product->price = $productEntity->getPrice();
+
         try {
-            $products = DB::table('product_inputs_use')
-                          ->distinct()
-                          ->select(DB::raw('COUNT(product_inputs_use.quantity) as num_product_inputs, products.id, products.name, products.price'))
-                          ->join('products', 'products.id', '=', 'product_inputs_use.products_id')
-                          ->get();
+            $success = $product->save();
         } catch (QueryException $error) {
-            //$products = [];
-            throw new Exception(':: [Error al obtener los productos] :: ' . $error->getMessage());
+            $success = false;
+            //throw new Exception(':: [Error al guardar el producto] :: ' . $error->getMessage());
+        }
+
+        if ($productEntity->inputs == null) {
+            return $success;
+        }
+
+        if ($success) {
+            try {
+                $productCreateRepository = new ProductCreateUseCase(new ProductCreateRepository());
+                foreach ($productEntity->inputs as $input) {
+                    $productCreate = new ProductCreateEntity(
+                        $product->id,
+                        $input['product_input'],
+                        $input['quantity']
+                    );
+
+                    $success = $productCreateRepository->create($productCreate);
+                }
+            } catch (QueryException $error) {
+                $success = false;
+                //$this->delete($product->id);
+                //throw new Exception(':: [Error al guardar el producto] :: ' . $error->getMessage());
+            }
+        }
+
+        return $success;
+    }
+
+    public function search($productName)
+    {
+        try {
+            $products = DB::table('products')
+                          ->where('name', 'like', '%' . $productName . '%')
+                          ->get();
+
+        } catch (QueryException $error) {
+            $products = [];
+            //throw new Exception(':: [Error al obtener los productos] :: ' . $error->getMessage());
         } catch (Exception $exception) {
             throw new Exception($exception->getMessage());
         }

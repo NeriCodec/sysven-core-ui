@@ -1,25 +1,14 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: DELL
- * Date: 23/11/2017
- * Time: 08:33 PM
- */
 
 namespace App\src\Common\Entities;
 
 
-class ProductInputSupplieEntity
+class ProductInputSupplyEntity
 {
     /**
      * @var $name
      */
     public $name;
-
-    /**
-     * @var $price
-     */
-    public $price;
 
     /**
      * @var $amount
@@ -32,25 +21,36 @@ class ProductInputSupplieEntity
     public $measure;
 
     /**
+     * @var $quantity
+     */
+    public $quantity;
+
+    /**
      * @var $supplie_id
      */
     public $supplie_id;
 
     /**
-     * ProductInputSupplieEntity constructor.
+     * @var $quantity_discount
+     */
+    public $quantity_discount;
+
+    /**
+     * ProductInputSupplyEntity constructor.
      * @param $name
      * @param $price
      * @param $amount
      * @param $measure
      * @param $provaider_id
      */
-    public function __construct($name, $price, $amount, $measure, $supplie_id)
+    public function __construct($name, $amount, $measure, $quantity, $supplie_id, $quantity_discount)
     {
-        $this->name       = $name;
-        $this->price      = $price;
-        $this->amount     = $amount;
-        $this->measure    = $measure;
-        $this->supplie_id = $supplie_id;
+        $this->name              = $name;
+        $this->amount            = $amount;
+        $this->measure           = $measure;
+        $this->quantity          = $quantity;
+        $this->supplie_id        = $supplie_id;
+        $this->quantity_discount = $quantity_discount;
     }
 
     /**
@@ -59,14 +59,6 @@ class ProductInputSupplieEntity
     public function getName()
     {
         return $this->name;
-    }
-
-    /**
-     * @return double
-     */
-    public function getPrice()
-    {
-        return $this->price;
     }
 
     /**
@@ -88,9 +80,25 @@ class ProductInputSupplieEntity
     /**
      * @return int
      */
+    public function getQuantity()
+    {
+        return $this->quantity;
+    }
+
+    /**
+     * @return int
+     */
     public function getSupplieId()
     {
         return $this->supplie_id;
+    }
+
+    /**
+     * @return double
+     */
+    public function getQuantitydiscount()
+    {
+        return $this->quantity_discount;
     }
 
 }

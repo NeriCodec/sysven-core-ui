@@ -14,7 +14,7 @@ class Product extends Model
 
     public function productInputs()
     {
-        return $this->hasMany(ProductCreate::class);
+        return $this->hasMany(ProductCreate::class, 'products_id');
     }
 
 }

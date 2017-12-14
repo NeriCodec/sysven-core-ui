@@ -11,4 +11,14 @@ class Sale extends Model
     protected $primaryKey = 'id';
 
     public $timestamps = false;
+
+    public function saleDetails()
+    {
+        return $this->hasMany(SaleDetail::class, 'sales_id');
+    }
+
+    public function products()
+    {
+        return $this->hasMany(Product::class, 'products_id', 'id');
+    }
 }

@@ -3,18 +3,12 @@
         <!-- ============================================================== -->
         <!-- Logo -->
         <!-- ============================================================== -->
-        <div class="navbar-header">
-            <a class="navbar-brand" href="#">
-                <!-- Logo text -->
-                <b>
-                    <p class="dark-logo" alt="homepage"><b>Sys</b>-ven</p>
-                </b>
-            </a>
-        </div>
-        <!-- ============================================================== -->
-        <!-- End Logo -->
-        <!-- ============================================================== -->
         <div class="navbar-collapse">
+            <ul class="navbar-nav mr-auto mt-md-0 ">
+                <!-- This is  -->
+                <li class="nav-item"> <a class="nav-link nav-toggler hidden-md-up text-muted waves-effect waves-dark" href="javascript:void(0)"><i class="ti-menu"></i></a> </li>
+
+            </ul>
             <!-- ============================================================== -->
             <!-- User profile and search -->
             <!-- ============================================================== -->

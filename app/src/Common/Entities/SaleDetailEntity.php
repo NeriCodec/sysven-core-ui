@@ -8,6 +8,11 @@ class SaleDetailEntity
     /**
      * @var $sale_num_sale
      */
+    private $id;
+
+    /**
+     * @var $sale_num_sale
+     */
     private $sales_id;
 
     /**
@@ -33,13 +38,47 @@ class SaleDetailEntity
      * @param $quantity
      * @param $subtotal
      */
-    public function __construct($sales_id, $products_id, $quantity, $subtotal)
+    public function __construct($id, $sales_id, $products_id, $quantity, $subtotal)
     {
+        $this->id          = $id;
         $this->sales_id    = $sales_id;
         $this->products_id = $products_id;
         $this->quantity    = $quantity;
         $this->subtotal    = $subtotal;
     }
+
+    /**
+     * @param mixed $sales_id
+     */
+    public function setSalesId($sales_id)
+    {
+        $this->sales_id = $sales_id;
+    }
+
+    /**
+     * @param mixed $products_id
+     */
+    public function setProductsId($products_id)
+    {
+        $this->products_id = $products_id;
+    }
+
+    /**
+     * @param mixed $quantity
+     */
+    public function setQuantity($quantity)
+    {
+        $this->quantity = $quantity;
+    }
+
+    /**
+     * @param mixed $subtotal
+     */
+    public function setSubtotal($subtotal)
+    {
+        $this->subtotal = $subtotal;
+    }
+
 
     /**
      * @return int

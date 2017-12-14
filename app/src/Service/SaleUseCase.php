@@ -5,7 +5,8 @@ namespace App\src\Service;
 use App\src\Common\Entities\SaleEntity;
 use App\src\Common\Interfaces\ISaleRepository;
 
-class SaleUseCase implements ISaleRepository
+class SaleUseCase
+    implements ISaleRepository
 {
     private $saleRepository;
 
@@ -54,11 +55,4 @@ class SaleUseCase implements ISaleRepository
     {
         // TODO: Implement getAllSaleByDate() method.
     }
-
-    public function getAllSaleDetailById($sale_id)
-    {
-        return $this->saleRepository->getAllSaleDetailById($sale_id);
-    }
-
-
 }

@@ -12,6 +12,11 @@ namespace App\src\Common\Entities;
 class ProductEntity
 {
     /**
+     * @var $id
+     */
+    public $id;
+
+    /**
      * @var $name
      */
     public $name;
@@ -22,14 +27,29 @@ class ProductEntity
     public $price;
 
     /**
+     * @var $inputs
+     */
+    public $inputs;
+
+    /**
      * ProductEntity constructor.
      * @param $name
      * @param $price
      */
-    public function __construct($name, $price)
+    public function __construct($id, $name, $price, $inputs)
     {
-        $this->name  = $name;
-        $this->price = $price;
+        $this->id     = $id;
+        $this->name   = $name;
+        $this->price  = $price;
+        $this->inputs = $inputs;
+    }
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
     }
 
     /**
@@ -47,5 +67,14 @@ class ProductEntity
     {
         return $this->price;
     }
+
+    /**
+     * @return array
+     */
+    public function getInputs()
+    {
+        return $this->inputs;
+    }
+
 
 }

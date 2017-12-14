@@ -12,7 +12,7 @@ class ProductCreateEntity
     /**
      * @var $product_input
      */
-    private $producto_input;
+    private $product_input;
 
     /**
      * @var $quantity
@@ -27,9 +27,9 @@ class ProductCreateEntity
      */
     public function __construct($products_id, $producto_input, $quantity)
     {
-        $this->products_id    = $products_id;
-        $this->producto_input = $producto_input;
-        $this->quantity       = $quantity;
+        $this->products_id   = $products_id;
+        $this->product_input = $producto_input;
+        $this->quantity      = $quantity;
     }
 
     /**
@@ -43,9 +43,9 @@ class ProductCreateEntity
     /**
      * @return string
      */
-    public function getProductoInput()
+    public function getProductInput()
     {
-        return $this->producto_input;
+        return $this->product_input;
     }
 
     /**

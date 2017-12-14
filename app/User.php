@@ -15,9 +15,8 @@ class User extends Model
     /**
      * Obtiene todas las ventas de un usuario.
      */
-
     public function sales()
     {
-        return $this->hasMany('App\Sale');
+        return $this->hasMany('App\Sale', 'users_id');
     }
 }

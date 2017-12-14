@@ -6,7 +6,8 @@ namespace App\src\Service;
 use App\src\Common\Entities\UserEntity;
 use App\src\Common\Interfaces\IUserRepository;
 
-class UserUseCase implements IUserRepository
+class UserUseCase
+    implements IUserRepository
 {
     private $userRepository;
 

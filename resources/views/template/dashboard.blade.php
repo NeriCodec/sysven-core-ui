@@ -17,6 +17,11 @@
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     <!-- You can change the theme colors from here -->
     <link href="{{ asset('css/colors/blue.css') }}" id="theme" rel="stylesheet">
+    <!-- ============================================================== -->
+    <!-- EasyAutocomplete CSS -->
+    <!-- ============================================================== -->
+    <link href="{{ asset('vendor/easyautocomplete/dist/easy-autocomplete.min.css') }}" id="theme" rel="stylesheet">
+    <link href="{{ asset('vendor/easyautocomplete/dist/easy-autocomplete.themes.min.css') }}" id="theme" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -59,23 +64,28 @@
         <!-- ============================================================== -->
         <!-- Page wrapper  -->
         <!-- ============================================================== -->
-        @if(session()->has('message'))
-            <div style="margin-left: 240px;">
-                <div class="alert alert-{{ session()->get('response') }}" role="alert" style="margin-bottom: 0px;">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    {{ session()->get('message') }}
-                </div>
-            </div>
-            {{--<div class="page-wrapper">--}}
-                {{--<div class="container-fluid">--}}
 
+        @if(session()->has('message'))
+            {{--<script type="text/javascript">--}}
+                {{--{{ notifyMessage('a', 'success') }}--}}
+            {{--</script>--}}
+            <div class='notifications bottom-right notificacion'></div>
+            <input type="hidden" id="message" value="{{ session()->get('message') }}">
+            <input type="hidden" id="type_alert" value="{{ session()->get('type_alert') }}">
+            {{--<div class="container-fluid">--}}
+                {{--<div style="margin-left: 240px;">--}}
+
+                    {{--<div class="alert alert-{{ session()->get('type_alert') }}" role="alert" style="margin-bottom: 0px;">--}}
+                        {{--<button type="button" class="close" data-dismiss="alert" aria-label="Close">--}}
+                            {{--<span aria-hidden="true">&times;</span>--}}
+                        {{--</button>--}}
+                        {{--{{ session()->get('message') }}--}}
+                    {{--</div>--}}
                 {{--</div>--}}
             {{--</div>--}}
         @endif
+
         @yield('page-wrapper')
-        {{--@include('page-wrapper-default')--}}
         <!-- ============================================================== -->
         <!-- End Page wrapper  -->
         <!-- ============================================================== -->
@@ -121,9 +131,17 @@
     <!-- ============================================================== -->
     <script src="{{ asset('../assets/plugins/styleswitcher/jQuery.style.switcher.js') }}"></script>
     <!-- ============================================================== -->
-    <!-- Others scripts -->
+    <!-- Owner scripts -->
     <!-- ============================================================== -->
     <script src="{{ asset('js/script.js') }}"></script>
+    <!-- ============================================================== -->
+    <!-- Notify -->
+    <!-- ============================================================== -->
+    <script src="{{ asset('js/notify.js') }}"></script>
+    <!-- ============================================================== -->
+    <!-- EasyAutocomplete scripts -->
+    <!-- ============================================================== -->
+    <script src="{{ asset('vendor/easyautocomplete/dist/jquery.easy-autocomplete.min.js') }}"></script>
 
 </body>
 

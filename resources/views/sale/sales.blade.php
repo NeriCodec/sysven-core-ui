@@ -7,21 +7,47 @@
         <!-- Container fluid  -->
         <!-- ============================================================== -->
         <div class="container-fluid">
-            @foreach($sales as $sale)
-                <p>{{ $sale['name'] }}</p>
-            @endforeach
+            <!-- ============================================================== -->
+            <!-- Start Page Content -->
+            <!-- ============================================================== -->
+            <div class="row">
+                <!-- column -->
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-block">
+                            <h4 class="card-title">Mis ventas
+                                <a href="{{ route('sale-register') }}" class="btn pull-right hidden-sm-down btn-warning">
+                                    <span class="fa fa-shopping-basket"></span>
+                                    Comenzar venta
+                                </a>
+                            </h4>
+                            <h6 class="card-subtitle">Puedes buscar una venta: <code>numero de venta</code></h6>
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th>No. Venta</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>
+
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ============================================================== -->
+            <!-- End PAge Content -->
+            <!-- ============================================================== -->
         </div>
         <!-- ============================================================== -->
         <!-- End Container fluid  -->
-        <!-- ============================================================== -->
-        <!-- ============================================================== -->
-        <!-- footer -->
-        <!-- ============================================================== -->
-        <footer class="footer text-center">
-            © 2017 Sysven by Alan Neri
-        </footer>
-        <!-- ============================================================== -->
-        <!-- End footer -->
         <!-- ============================================================== -->
     </div>
 

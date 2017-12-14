@@ -22,7 +22,7 @@ class SupplyController extends Controller
 
     public function showSupplies()
     {
-        $supplies = $this->supplyRepository->getAllSupplies();
+        $supplies = $this->supplyRepository->getAll();
 
         return view('supply.supplies')->with('supplies', $supplies);
     }
@@ -34,7 +34,7 @@ class SupplyController extends Controller
             $request->address
         );
 
-        $success = $this->supplyRepository->registerSupply($supply);
+        $success = $this->supplyRepository->create($supply);
 
         if ($success) {
             $this->alert('Proveedor registrado con exito', 'success');
@@ -53,7 +53,7 @@ class SupplyController extends Controller
             $request->address
         );
 
-        $success = $this->supplyRepository->updateSupply($supply, $request->id);
+        $success = $this->supplyRepository->update($supply, $request->id);
 
         if ($success) {
             $this->alert('Proveedor actualizado con exito', 'success');
@@ -67,7 +67,7 @@ class SupplyController extends Controller
 
     public function deleteSupply(Request $request)
     {
-        $success = $this->supplyRepository->deleteSupply($request->id);
+        $success = $this->supplyRepository->delete($request->id);
 
         if ($success) {
             $this->alert('Producto eliminado con exito', 'success');

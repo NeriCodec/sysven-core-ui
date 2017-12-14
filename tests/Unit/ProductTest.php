@@ -44,7 +44,7 @@ class ProductTest extends TestCase
             ]
         ];
 
-        $success = $productUseCase->registerProduct($productEntity, $inputs);
+        $success = $productUseCase->create($productEntity, $inputs);
 
         $this->assertEquals($success, true);
     }
@@ -53,7 +53,7 @@ class ProductTest extends TestCase
     {
         $productUseCase = new ProductUseCase(new ProductRepository());
 
-        $products = $productUseCase->getAllProducts();
+        $products = $productUseCase->getAll();
 
         $this->assertEquals(7, count($products));
     }

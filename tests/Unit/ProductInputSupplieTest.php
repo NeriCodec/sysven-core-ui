@@ -3,9 +3,9 @@
 namespace Tests\Unit;
 
 use App;
-use App\src\Common\Entities\ProductInputSupplieEntity;
-use App\src\Data\ProductInputSupplieRepository;
-use App\src\Service\ProductInputSupplieUseCase;
+use App\src\Common\Entities\ProductInputSupplyEntity;
+use App\src\Data\ProductInputSupplyRepository;
+use App\src\Service\ProductInputSupplyUseCase;
 use Tests\TestCase;
 
 class ProductInputSupplieTest extends TestCase
@@ -17,11 +17,11 @@ class ProductInputSupplieTest extends TestCase
      */
     public function test_para_registrar_un_insumodeProveedor()
     {
-        $productInputSupplieUseCase = new ProductInputSupplieUseCase(new ProductInputSupplieRepository());
+        $productInputSupplieUseCase = new ProductInputSupplyUseCase(new ProductInputSupplyRepository());
 
         $productInputSupplie = factory(App\ProductInputSupplie::class)->make();
 
-        $productInputSupplieEntity = new ProductInputSupplieEntity(
+        $productInputSupplieEntity = new ProductInputSupplyEntity(
             $productInputSupplie->name,
             $productInputSupplie->price,
             $productInputSupplie->amount,
@@ -30,7 +30,7 @@ class ProductInputSupplieTest extends TestCase
 
         );
 
-        $success = $productInputSupplieUseCase->registerProductInputSupplie($productInputSupplieEntity);
+        $success = $productInputSupplieUseCase->create($productInputSupplieEntity);
 
         $this->assertTrue($success, true);
     }

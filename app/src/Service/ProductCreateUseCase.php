@@ -4,9 +4,9 @@ namespace App\src\Service;
 
 use App\src\Common\Entities\ProductCreateEntity;
 use App\src\Common\Interfaces\IProductCreateRepository;
-use App\src\Data\ProductRepository;
 
-class ProductCreateUseCase implements IProductCreateRepository
+class ProductCreateUseCase
+    implements IProductCreateRepository
 {
     private $productCreateRepository;
 
@@ -19,8 +19,37 @@ class ProductCreateUseCase implements IProductCreateRepository
         $this->productCreateRepository = $productCreateRepository;
     }
 
-    public function registerProductCreate(ProductCreateEntity $productCreateEntity)
+    /**
+     * registerProductCreate function.
+     * @param $productCreateEntity
+     */
+    public function create(ProductCreateEntity $productCreateEntity)
     {
-        return $this->productCreateRepository->registerProductCreate($productCreateEntity);
+        return $this->productCreateRepository->create($productCreateEntity);
+    }
+
+    /**
+     * getAllProductCreted function.
+     * @return array
+     */
+    public function getAll()
+    {
+        return $this->productCreateRepository->getAll();
+    }
+
+    public function update(ProductCreateEntity $productCreateEntity)
+    {
+        return $this->productCreateRepository->update($productCreateEntity);
+    }
+
+    public function delete($id)
+    {
+        return $this->productCreateRepository->delete($id);
+    }
+
+
+    public function getAllInputsOfProduct($product_id)
+    {
+        return $this->productCreateRepository->getAllInputsOfProduct($product_id);
     }
 }

@@ -28,7 +28,7 @@ class SupplieTest extends TestCase
             $supplie->address
         );
 
-        $success = $supplieUseCase->registerSupply($supplieEntity);
+        $success = $supplieUseCase->create($supplieEntity);
 
         $this->assertEquals($success, true);
     }
