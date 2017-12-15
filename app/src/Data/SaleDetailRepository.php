@@ -14,7 +14,7 @@ use Mockery\Exception;
 class SaleDetailRepository
     implements ISaleDetailRepository
 {
-    public function create(SaleDetailEntity $saleDetailEntity)
+    public function add(SaleDetailEntity $saleDetailEntity)
     {
         try {
             $saleDetail = new SaleDetail;
@@ -50,14 +50,12 @@ class SaleDetailRepository
         return $saleDetails;
     }
 
-    public function update(SaleDetailEntity $saleDetailEntity, $id)
+    public function incrementQuantityOfProductOfSaleDetail($saleId)
     {
         try {
-            $saleDetail = SaleDetail::find($id);
-            $product = Product::find($saleDetailEntity->getProductsId());
+            $saleDetail = SaleDetail::find($saleId);
+            $product    = Product::find($saleDetail->products_id);
 
-            $saleDetail->sales_id    = $saleDetailEntity->getSalesId();
-            $saleDetail->products_id = $saleDetailEntity->getProductsId();
             $saleDetail->quantity    = $saleDetail->quantity + 1;
             $saleDetail->subtotal    = $product->price * $saleDetail->quantity;
 
@@ -72,10 +70,47 @@ class SaleDetailRepository
         return $response;
     }
 
-    public function getSaleDetailById($id)
+    public function removeQuantityOfProductOfSaleDetail($saleId)
     {
         try {
-            $saleDetail = SaleDetail::all()->where('products_id', '=', $id)->last();
+            $saleDetail = SaleDetail::find($saleId);
+            $product    = Product::find($saleDetail->products_id);
+
+            $saleDetail->quantity    = $saleDetail->quantity - 1;
+            $saleDetail->subtotal    = $product->price * $saleDetail->quantity;
+
+            $response = $saleDetail->save();
+        } catch (QueryException $error) {
+            $response = [];
+            //throw new Exception(':: [Error al obtener los productos] :: ' . $error->getMessage());
+        } catch (Exception $exception) {
+            throw new Exception($exception->getMessage());
+        }
+
+        return $response;
+    }
+
+
+    public function delete($saleId)
+    {
+        try {
+            $saleDetail = SaleDetail::find($saleId);
+            $response   = $saleDetail->delete();
+        } catch (QueryException $exception) {
+            $response = [];
+        }
+
+        return $response;
+    }
+
+
+    /**
+     * @return int
+     */
+    public function getIdOfSaleDetailByProductId($productId)
+    {
+        try {
+            $saleDetail = SaleDetail::all()->where('products_id', '=', $productId)->last();
         } catch (QueryException $error) {
             $saleDetail = [];
             //throw new Exception(':: [Error al obtener los productos] :: ' . $error->getMessage());
@@ -86,8 +121,28 @@ class SaleDetailRepository
         return $saleDetail->id;
     }
 
+    public function getProductOfSaleDetailById($saleDetailId)
+    {
+        try {
+            $saleDetail = DB::table('sales_details')
+                            ->join('sales', 'sales_details.sales_id', '=', 'sales.id')
+                            ->join('products', 'products.id', '=', 'sales_details.products_id')
+                            ->select('products.id as productId', 'products.name', 'sales_details.id as salesDetailsId', 'products.price', 'sales_details.quantity')
+                            ->where('sales_details.id', '=', $saleDetailId)
+                            ->get()
+                            ->last();
+        } catch (QueryException $error) {
+            $saleDetail = [];
+            //throw new Exception(':: [Error al obtener los productos] :: ' . $error->getMessage());
+        } catch (Exception $exception) {
+            throw new Exception($exception->getMessage());
+        }
 
-    public function getSaleDetailsById($id)
+        return $saleDetail;
+    }
+
+
+    public function getSaleDetailsById($saleId)
     {
         $saleDetailsSerialize = [];
 
@@ -95,8 +150,8 @@ class SaleDetailRepository
             $saleDetails = DB::table('sales_details')
                              ->join('sales', 'sales_details.sales_id', '=', 'sales.id')
                              ->join('products', 'products.id', '=', 'sales_details.products_id')
-                             ->select('products.id', 'products.name', 'sales_details.id as salesDetailsId', 'products.price', 'sales.created_at', 'sales_details.quantity', 'sales_details.subtotal')
-                             ->where('sales.id', '=', $id)
+                             ->select('products.id as productId', 'products.name', 'sales_details.id as salesDetailsId', 'products.price', 'sales.created_at', 'sales_details.quantity', 'sales_details.subtotal')
+                             ->where('sales.id', '=', $saleId)
                              ->get()
                              ->jsonSerialize();
 

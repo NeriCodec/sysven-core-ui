@@ -57,64 +57,23 @@
                                                     {{ $saleDetail->quantity }}
                                                 </td>
                                                 <td>
-                                                    Q/{{ $saleDetail->price }}
+                                                    {{ $saleDetail->price }} qtz.
                                                 </td>
                                                 <td>
-                                                    Q/{{ $saleDetail->subtotal }}
+                                                    {{ $saleDetail->subtotal }} qtz.
                                                 </td>
                                                 <td>
-                                                    <button class="btn btn-danger">X</button>
+                                                    <form class="form-horizontal form-material" action="{{ route('detail-delete', ['id' => $saleDetail->salesDetailsId]) }}"
+                                                          method="post">
+                                                        {{ csrf_field() }}
+                                                        <button type="submit" class="btn btn-danger" >
+                                                            X
+                                                        </button>
+                                                    </form>
                                                 </td>
+
                                             </tr>
                                         @endforeach
-                                        {{--@foreach($productsInputSupplie as $productInputSupplie)--}}
-                                        {{--<tr>--}}
-                                        {{--<td>Frappe Premium - Nutella</td>--}}
-                                        {{--<td>--}}
-                                        {{--<input disabled type="number" min="1" class="form-control" placeholder="Cantidad"--}}
-                                        {{--value="1"--}}
-                                        {{--style="width: 80px;">--}}
-                                        {{--</td>--}}
-                                        {{--<td>$45</td>--}}
-                                        {{--<td>$90</td>--}}
-                                        {{--<td>--}}
-                                        {{--<button class="btn btn-danger">--}}
-                                        {{--X--}}
-                                        {{--</button>--}}
-                                        {{--</td>--}}
-                                        {{--</tr>--}}
-                                        {{--<tr>--}}
-                                        {{--<td>Smothie</td>--}}
-                                        {{--<td>--}}
-                                        {{--<input disabled type="number" min="1" class="form-control" placeholder="Cantidad"--}}
-                                        {{--value="1"--}}
-                                        {{--style="width: 80px;">--}}
-                                        {{--</td>--}}
-                                        {{--<td>$55</td>--}}
-                                        {{--<td>$55</td>--}}
-                                        {{--<td>--}}
-                                        {{--<button class="btn btn-danger">--}}
-                                        {{--X--}}
-                                        {{--</button>--}}
-                                        {{--</td>--}}
-                                        {{--</tr>--}}
-                                        {{--<tr>--}}
-                                        {{--<td>Frappe Premium - Nutella</td>--}}
-                                        {{--<td>--}}
-                                        {{--<input disabled type="number" min="1" class="form-control" placeholder="Cantidad"--}}
-                                        {{--value="1"--}}
-                                        {{--style="width: 80px;">--}}
-                                        {{--</td>--}}
-                                        {{--<td>$25</td>--}}
-                                        {{--<td>$100</td>--}}
-                                        {{--<td>--}}
-                                        {{--<button class="btn btn-danger">--}}
-                                        {{--X--}}
-                                        {{--</button>--}}
-                                        {{--</td>--}}
-                                        {{--</tr>--}}
-                                        {{--@endforeach--}}
-
                                         </tbody>
                                     </table>
                                 </div>
@@ -122,7 +81,7 @@
                             <br>
                             <div style="background: black;color: #00cc00;font-size: 30px;padding: 0px 20px; margin-bottom: 10px; border-radius: 10px;"
                                  class="pull-right" id="total-price">
-                                Total: Q/0
+                                Total: 0.00 Qtz
                             </div>
                             <br><br><br>
                             <button class="btn btn-success pull-right" style="width: 18%;">

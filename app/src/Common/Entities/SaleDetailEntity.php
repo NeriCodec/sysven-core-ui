@@ -6,17 +6,17 @@ namespace App\src\Common\Entities;
 class SaleDetailEntity
 {
     /**
-     * @var $sale_num_sale
+     * @var $id
      */
     private $id;
 
     /**
-     * @var $sale_num_sale
+     * @var $sales_id
      */
     private $sales_id;
 
     /**
-     * @var $sale_num_sale
+     * @var $products_id
      */
     private $products_id;
 
@@ -26,7 +26,7 @@ class SaleDetailEntity
      */
     private $quantity;
 
-    /** Subtotal de multiplicacion de quantity * product.price
+    /** Subtotal
      * @var $subtotal
      */
     private $subtotal;

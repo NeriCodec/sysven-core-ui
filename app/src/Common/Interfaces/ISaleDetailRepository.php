@@ -8,12 +8,18 @@ use App\src\Common\Entities\SaleDetailEntity;
 interface ISaleDetailRepository
 {
     public function getAll();
-    
-    public function create(SaleDetailEntity $saleDetailEntity);
 
-    public function update(SaleDetailEntity $saleDetailEntity, $id);
+    public function add(SaleDetailEntity $saleDetailEntity);
 
-    public function getSaleDetailById($id);
+    public function delete($saleId);
 
-    public function getSaleDetailsById($id);
+    public function getProductOfSaleDetailById($saleDetailId);
+
+    public function incrementQuantityOfProductOfSaleDetail($saleId);
+
+    public function removeQuantityOfProductOfSaleDetail($saleId);
+
+    public function getIdOfSaleDetailByProductId($productId);
+
+    public function getSaleDetailsById($saleId);
 }

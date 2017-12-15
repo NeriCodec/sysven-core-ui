@@ -45,7 +45,7 @@ $(document).ready(function () {
             match: {
                 enabled: true
             },
-            onClickEvent: function() {
+            onClickEvent: function () {
                 $('#button-search-product').disabled = false;
             },
             maxNumberOfElements: 8
@@ -57,8 +57,32 @@ $(document).ready(function () {
 
     $('#productName').easyAutocomplete(options);
 
-    $("#notificacion").notify($('#message').val(), $('#type_alert').val())
-
+    $.notify({
+        // options
+        message: $('#message').val()
+    }, {
+        // settings
+        element: '#notification',
+        position: null,
+        type: $('#type_alert').val(),
+        allow_dismiss: true,
+        placement: {
+            from: "top",
+            align: "center"
+        },
+        offset: {
+            x: 50,
+            y: 10
+        },
+        spacing: 10,
+        z_index: 1031,
+        delay: 5000,
+        timer: 1000,
+        animate: {
+            enter: 'animated fadeInDown',
+            exit: 'animated fadeOutUp'
+        }
+    });
 
 });
 

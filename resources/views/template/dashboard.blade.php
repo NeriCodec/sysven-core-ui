@@ -6,28 +6,21 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/favicon.png">
+    <meta name="description" content="Splash">
+    <meta name="author" content="Alan Roberto Neri Martinez">
     <title>Sysven</title>
     <!-- Bootstrap Core CSS -->
     <link href="{{ asset('../assets/plugins/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
     <!-- Custom CSS -->
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     <!-- You can change the theme colors from here -->
-    <link href="{{ asset('css/colors/blue.css') }}" id="theme" rel="stylesheet">
+    <link href="{{ asset('css/colors/red-dark.css') }}" id="theme" rel="stylesheet">
     <!-- ============================================================== -->
     <!-- EasyAutocomplete CSS -->
     <!-- ============================================================== -->
     <link href="{{ asset('vendor/easyautocomplete/dist/easy-autocomplete.min.css') }}" id="theme" rel="stylesheet">
     <link href="{{ asset('vendor/easyautocomplete/dist/easy-autocomplete.themes.min.css') }}" id="theme" rel="stylesheet">
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+
 </head>
 
 <body class="fix-header fix-sidebar card-no-border">
@@ -35,11 +28,11 @@
     <!-- ============================================================== -->
     <!-- Preloader - style you can find in spinners.css -->
     <!-- ============================================================== -->
-    <div class="preloader">
-        <svg class="circular" viewBox="25 25 50 50">
-            <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/>
-        </svg>
-    </div>
+    {{--<div class="preloader">--}}
+        {{--<svg class="circular" viewBox="25 25 50 50">--}}
+            {{--<circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/>--}}
+        {{--</svg>--}}
+    {{--</div>--}}
     <!-- ============================================================== -->
     <!-- Main wrapper - style you can find in pages.scss -->
     <!-- ============================================================== -->
@@ -66,23 +59,11 @@
         <!-- ============================================================== -->
 
         @if(session()->has('message'))
-            {{--<script type="text/javascript">--}}
-                {{--{{ notifyMessage('a', 'success') }}--}}
-            {{--</script>--}}
-            <div class='notifications bottom-right notificacion'></div>
+
+            <div class='notifications bottom-right' id="notification"></div>
             <input type="hidden" id="message" value="{{ session()->get('message') }}">
             <input type="hidden" id="type_alert" value="{{ session()->get('type_alert') }}">
-            {{--<div class="container-fluid">--}}
-                {{--<div style="margin-left: 240px;">--}}
 
-                    {{--<div class="alert alert-{{ session()->get('type_alert') }}" role="alert" style="margin-bottom: 0px;">--}}
-                        {{--<button type="button" class="close" data-dismiss="alert" aria-label="Close">--}}
-                            {{--<span aria-hidden="true">&times;</span>--}}
-                        {{--</button>--}}
-                        {{--{{ session()->get('message') }}--}}
-                    {{--</div>--}}
-                {{--</div>--}}
-            {{--</div>--}}
         @endif
 
         @yield('page-wrapper')
@@ -131,17 +112,18 @@
     <!-- ============================================================== -->
     <script src="{{ asset('../assets/plugins/styleswitcher/jQuery.style.switcher.js') }}"></script>
     <!-- ============================================================== -->
-    <!-- Owner scripts -->
-    <!-- ============================================================== -->
-    <script src="{{ asset('js/script.js') }}"></script>
-    <!-- ============================================================== -->
     <!-- Notify -->
     <!-- ============================================================== -->
-    <script src="{{ asset('js/notify.js') }}"></script>
+    <script src="{{ asset('js/bootstrap-notify.js') }}"></script>
     <!-- ============================================================== -->
     <!-- EasyAutocomplete scripts -->
     <!-- ============================================================== -->
     <script src="{{ asset('vendor/easyautocomplete/dist/jquery.easy-autocomplete.min.js') }}"></script>
+    <!-- ============================================================== -->
+    <!-- Owner scripts -->
+    <!-- ============================================================== -->
+    <script src="{{ asset('js/script.js') }}"></script>
+
 
 </body>
 

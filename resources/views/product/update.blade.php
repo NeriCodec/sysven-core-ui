@@ -75,7 +75,7 @@
                   method="post">
                 {{ csrf_field() }}
                 <button type="submit" class="btn btn-danger" style="width: 100%">
-                    <span class="fa fa-eraser"></span>
+                    <span class="fa fa-window-close"></span>
                     Eliminar producto
                 </button>
             </form>

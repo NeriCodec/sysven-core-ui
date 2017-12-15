@@ -9,6 +9,7 @@ use App\src\Common\Interfaces\ISaleDetailRepository;
 class SaleDetailUseCase
     implements ISaleDetailRepository
 {
+
     private $saleDetailRepository;
 
     /**
@@ -25,22 +26,36 @@ class SaleDetailUseCase
         return $this->saleDetailRepository->getAll();
     }
 
-    public function create(SaleDetailEntity $saleDetailEntity)
+    /**
+     * Agrega un detalle de venta.
+     * create function.
+     * @param $saleDetailEntity
+     * @return bool
+     */
+    public function add(SaleDetailEntity $saleDetailEntity)
     {
-        $productDetailExists = $this->productDetailExists($saleDetailEntity->getSalesId(), $saleDetailEntity->getProductsId());
+        $existsProduct = $this->existsProductIntoSaleDetail($saleDetailEntity->getSalesId(), $saleDetailEntity->getProductsId());
 
-        if ($productDetailExists) {
-            return $this->saleDetailRepository->update($saleDetailEntity, $this->getProductDetailId($saleDetailEntity->getSalesId(), $saleDetailEntity->getProductsId()));
+        if ($existsProduct) {
+            return $this->saleDetailRepository->incrementQuantityOfProductOfSaleDetail($this->getIdOfSaleDetail($saleDetailEntity->getSalesId(), $saleDetailEntity->getProductsId()));
         }
 
-        return $this->saleDetailRepository->create($saleDetailEntity);
+        return $this->saleDetailRepository->add($saleDetailEntity);
     }
 
-    private function productDetailExists($saleId, $producId)
+    /**
+     * Verifica si un producto dentro del detalle venta existe.
+     * productDetailExists function.
+     * @param $saleId
+     * @param $producId
+     * @return bool
+     */
+    private function existsProductIntoSaleDetail($saleId, $producId)
     {
-        $productsDetailsById = $this->getSaleDetailsById($saleId);
-        foreach ($productsDetailsById as $product) {
-            if ($product->id == $producId) {
+        $saleDetails = $this->getSaleDetailsById($saleId);
+
+        foreach ($saleDetails as $saleDetail) {
+            if ($saleDetail->productId == $producId) {
                 return true;
             }
         }
@@ -48,33 +63,88 @@ class SaleDetailUseCase
         return false;
     }
 
-    private function getProductDetailId($saleId, $producId)
+    /**
+     * Obtiene el id de detalle venta.
+     * productDetailExists function.
+     * @param $saleId
+     * @param $producId
+     * @return int (id de detalle venta)
+     */
+    private function getIdOfSaleDetail($saleId, $producId)
     {
-        $productsDetailsById = $this->getSaleDetailsById($saleId);
+        $saleDetails = $this->getSaleDetailsById($saleId);
 
-        foreach ($productsDetailsById as $product) {
-            if ($product->id == $producId) {
-                return $this->getSaleDetailById($product->id);
+        foreach ($saleDetails as $saleDetail) {
+            if ($saleDetail->productId == $producId) {
+                return $this->getIdOfSaleDetailByProductId($saleDetail->productId);
             }
         }
 
         return -1;
     }
 
-    public function update(SaleDetailEntity $saleDetailEntity, $id)
+    public function incrementQuantityOfProductOfSaleDetail($saleId)
     {
-        return $this->saleDetailRepository->update($saleDetailEntity, $id);
+        return $this->saleDetailRepository->incrementQuantityOfProductOfSaleDetail($saleId);
     }
 
-    public function getSaleDetailById($id)
+    public function removeQuantityOfProductOfSaleDetail($saleId)
     {
-        return $this->saleDetailRepository->getSaleDetailById($id);
+        return $this->saleDetailRepository->removeQuantityOfProductOfSaleDetail($saleId);
     }
 
 
-    public function getSaleDetailsById($id)
+    public function delete($saleId)
     {
-        return $this->saleDetailRepository->getSaleDetailsById($id);
+        $product = $this->getProductOfSaleDetailById($saleId);
+
+        if ($this->hasMoreThanOne($product)) {
+            return $this->removeQuantityOfProductOfSaleDetail($saleId);
+        }
+
+        return $this->saleDetailRepository->delete($saleId);
+    }
+    /**
+     * Verifica si un producto contiene mas de uno.
+     * hasMoreOfOne function.
+     * @param $product
+     * @return bool
+     */
+    private function hasMoreThanOne($product)
+    {
+        if ($product->quantity >= 2)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Obtiene un producto del detalle venta por el id_producto
+     * getProductOfSaleDetailByProductId function.
+     * @param $saleDetailId
+     */
+    public function getProductOfSaleDetailById($saleDetailId)
+    {
+        return $this->saleDetailRepository->getProductOfSaleDetailById($saleDetailId);
+    }
+
+
+    /**
+     * Obtiene el id de detalle venta por medio del id_producto.
+     * getIdOfSaleDetailByProductId function.
+     * @param $productId
+     */
+    public function getIdOfSaleDetailByProductId($productId)
+    {
+        return $this->saleDetailRepository->getIdOfSaleDetailByProductId($productId);
+    }
+
+
+    public function getSaleDetailsById($saleId)
+    {
+        return $this->saleDetailRepository->getSaleDetailsById($saleId);
     }
 
 }

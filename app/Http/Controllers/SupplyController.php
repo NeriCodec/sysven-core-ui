@@ -70,10 +70,10 @@ class SupplyController extends Controller
         $success = $this->supplyRepository->delete($request->id);
 
         if ($success) {
-            $this->alert('Producto eliminado con exito', 'success');
+            $this->alert('Proveedor eliminado con exito', 'success');
         }
         else {
-            $this->alert('Error al eliminar el producto', 'danger');
+            $this->alert('Error al eliminar el proveedor', 'danger');
         }
 
         return redirect()->route('supplies');

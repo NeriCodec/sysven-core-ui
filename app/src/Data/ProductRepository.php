@@ -86,10 +86,16 @@ class ProductRepository
 
     public function getProductByName($productName)
     {
-        $productEntity = null;
+        $productEntity = [];
         try {
             $product          = Product::all()->where('name', '=', $productName)->last();
+            if($product == null)
+            {
+                return $productEntity;
+            }
+
             $productSerialize = $product->jsonSerialize();
+
 
             $productEntity = new ProductEntity(
                 $productSerialize["id"],
@@ -98,9 +104,12 @@ class ProductRepository
                 null
             );
 
+
         } catch (QueryException $error) {
-            $product = [];
+            $productEntity = [];
             //throw new Exception(':: [Error al eliminar el producto] :: ' . $error->getMessage());
+        } catch (Exception $exception) {
+            throw new Exception($exception->getMessage());
         }
 
         return $productEntity;

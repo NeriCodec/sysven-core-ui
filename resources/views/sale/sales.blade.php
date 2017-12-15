@@ -16,7 +16,7 @@
                     <div class="card">
                         <div class="card-block">
                             <h4 class="card-title">Mis ventas
-                                <a href="{{ route('sale-register') }}" class="btn pull-right hidden-sm-down btn-warning">
+                                <a href="{{ route('sale-register') }}" class="btn pull-right hidden-sm-down btn-success">
                                     <span class="fa fa-shopping-basket"></span>
                                     Comenzar venta
                                 </a>

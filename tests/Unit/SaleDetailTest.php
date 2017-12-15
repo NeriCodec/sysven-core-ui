@@ -29,7 +29,7 @@ class SaleDetailTest extends TestCase
             $saleDetail->subtotal
         );
 
-        $success = $saleDetailUseCase->create($saleDetailEntity);
+        $success = $saleDetailUseCase->add($saleDetailEntity);
 
         $this->assertTrue($success, true);
     }
