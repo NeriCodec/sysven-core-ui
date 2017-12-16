@@ -3,12 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\src\Common\Entities\SaleEntity;
-use App\src\Data\ProductRepository;
 use App\src\Data\SaleRepository;
-use App\src\Service\ProductUseCase;
 use App\src\Service\SaleUseCase;
-use App\User;
 use Illuminate\Http\Request;
+
 
 class SaleController
     extends Controller
@@ -17,25 +15,38 @@ class SaleController
 
     public function __construct()
     {
-        $this->saleUseCase    = new SaleUseCase(new SaleRepository());
+        $this->saleUseCase = new SaleUseCase(new SaleRepository());
     }
 
     public function show()
     {
-        return view('sale.sales');
+        $sales = $this->saleUseCase->getAll();
+        return view('sale.sales')->with('sales', $sales);
     }
 
-    public function register()
+    public function register(Request $request)
     {
         $sale = new SaleEntity(
-            0,
+            $request->subtotal != null ? $request->subtotal : 0,
             date('Y-m-d H:m:s'),
             1
         );
 
-        $this->saleUseCase->generateSale($sale);
+        $success = $this->saleUseCase->generateSale($sale);
 
-        return redirect()->route('sale-detail');
+        if($request->subtotal == null) {
+            // Envia al modulo de detalle de ventas
+            return redirect()->route('sale-detail');
+        }
+
+        if ($success) {
+            $this->alert('Venta realizada con exito', 'success');
+        }
+        else {
+            $this->alert('Error al realizar venta', 'danger');
+        }
+
+        return redirect()->route('sales');
     }
 
 }

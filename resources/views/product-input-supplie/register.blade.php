@@ -23,7 +23,7 @@
                             {{ csrf_field() }}
                             <div class="row">
 
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="col-md-12">Nombre del insumo</label>
                                         <div class="col-md-12">
@@ -32,7 +32,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                {{--<div class="col-md-6">--}}
                                     {{--<div class="form-group">--}}
                                         {{--<label for="example-email" class="col-md-12">Precio del insumo</label>--}}
                                         {{--<div class="col-md-12">--}}
@@ -40,7 +40,7 @@
                                                    {{--class="form-control form-control-line" name="price" id="price">--}}
                                         {{--</div>--}}
                                     {{--</div>--}}
-                                </div>
+                                {{--</div>--}}
                             </div>
 
                             <div class="row">

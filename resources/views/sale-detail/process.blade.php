@@ -19,7 +19,8 @@
                                 {{ csrf_field() }}
                                 <div class="row">
                                     <div class="col-md-10">
-                                        <input required type="text" id="productName" name="productName" class="form-control"
+                                        <input required type="text" id="productName" name="productName"
+                                               class="form-control"
                                                placeholder="Buscar producto...">
                                     </div>
                                     <div class="col-md-2">
@@ -45,10 +46,13 @@
                                         </tr>
                                         </thead>
                                         <tbody>
+                                        @php
+                                            $subtotal = 0;
+                                        @endphp
                                         @foreach($saleDetails as $saleDetail)
                                             <tr>
                                                 {{--<td>--}}
-                                                    {{--{{ $saleDetail->id }}--}}
+                                                {{--{{ $saleDetail->id }}--}}
                                                 {{--</td>--}}
                                                 <td>
                                                     {{ $saleDetail->name }}
@@ -61,12 +65,14 @@
                                                 </td>
                                                 <td>
                                                     {{ $saleDetail->subtotal }} qtz.
+                                                    @php $subtotal += $saleDetail->subtotal @endphp
                                                 </td>
                                                 <td>
-                                                    <form class="form-horizontal form-material" action="{{ route('detail-delete', ['id' => $saleDetail->salesDetailsId]) }}"
+                                                    <form class="form-horizontal form-material"
+                                                          action="{{ route('detail-delete', ['id' => $saleDetail->salesDetailsId]) }}"
                                                           method="post">
                                                         {{ csrf_field() }}
-                                                        <button type="submit" class="btn btn-danger" >
+                                                        <button type="submit" class="btn btn-danger">
                                                             X
                                                         </button>
                                                     </form>
@@ -81,12 +87,20 @@
                             <br>
                             <div style="background: black;color: #00cc00;font-size: 30px;padding: 0px 20px; margin-bottom: 10px; border-radius: 10px;"
                                  class="pull-right" id="total-price">
-                                Total: 0.00 Qtz
+                                Total: {{ $subtotal }} Qtz
                             </div>
                             <br><br><br>
-                            <button class="btn btn-success pull-right" style="width: 18%;">
-                                Pagar
-                            </button>
+
+                            <form class="form-horizontal form-material"
+                                  action="{{ route('sale-register') }}"
+                                  method="post">
+                                {{ csrf_field() }}
+                                <input type="hidden" name="subtotal" id="subtotal" value="{{ $subtotal }}">
+                                <button @if($subtotal == 0) disabled type="button" @else type="submit" @endif class="btn btn-success pull-right" style="width: 18%;">
+                                    Pagar
+                                </button>
+                            </form>
+
                             <br><br>
                             <button class="btn btn-warning pull-right" style="width: 18%;">
                                 Dejar pendiente

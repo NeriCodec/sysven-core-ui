@@ -7,6 +7,8 @@ use App\src\Common\Entities\SaleEntity;
 
 interface ISaleRepository
 {
+    public function getAll();
+
     public function removeMoney($amount);
 
     public function generateSale(SaleEntity $entity);

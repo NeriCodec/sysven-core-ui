@@ -24,7 +24,7 @@ Route::get('/sale', [
     'uses' => 'SaleController@show'
 ]);
 
-Route::get('/sale/register', [
+Route::post('/sale/register', [
     'as' => 'sale-register',
     'uses' => 'SaleController@register'
 ]);

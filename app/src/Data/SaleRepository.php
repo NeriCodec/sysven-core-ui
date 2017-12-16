@@ -5,11 +5,27 @@ namespace App\src\Data;
 use App\Sale;
 use App\src\Common\Entities\SaleEntity;
 use App\src\Common\Interfaces\ISaleRepository;
+use Exception;
+use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
 
 class SaleRepository
     implements ISaleRepository
 {
+    public function getAll()
+    {
+        try {
+            $sales = Sale::all()->reverse();
+        } catch (QueryException $error) {
+            $sales = [];
+            //throw new Exception(':: [Error al obtener los productos] :: ' . $error->getMessage());
+        } catch (Exception $exception) {
+            throw new Exception($exception->getMessage());
+        }
+
+        return $sales;
+    }
+
 
     public function removeMoney($amount)
     {

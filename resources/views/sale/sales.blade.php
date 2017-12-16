@@ -16,25 +16,38 @@
                     <div class="card">
                         <div class="card-block">
                             <h4 class="card-title">Mis ventas
-                                <a href="{{ route('sale-register') }}" class="btn pull-right hidden-sm-down btn-success">
-                                    <span class="fa fa-shopping-basket"></span>
-                                    Comenzar venta
-                                </a>
+                                <form class="form-horizontal form-material"
+                                      action="{{ route('sale-register') }}"
+                                      method="post">
+                                    {{ csrf_field() }}
+                                    <button type="submit" class="btn btn-success pull-right" style="width: 18%;">
+                                        Comenzar venta
+                                    </button>
+                                </form>
                             </h4>
                             <h6 class="card-subtitle">Puedes buscar una venta: <code>numero de venta</code></h6>
-                            <div class="table-responsive">
-                                <table class="table">
+                            <div class="table-responsive m-t-40">
+                                <table class="table stylish-table">
                                     <thead>
                                     <tr>
-                                        <th>No. Venta</th>
+                                        <th>No. venta</th>
+                                        <th>Total</th>
+                                        <th>Fecha</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <td>
+                                    @foreach($sales as $sale)
+                                        <tr>
+                                            <td>
+                                                <h6>{{ $sale->id }}</h6>
+                                            </td>
+                                            <td>$ {{ $sale->total }} - Quetzales</td>
+                                            <td>
+                                                {{ $sale->created_at }}
+                                            </td>
+                                        </tr>
+                                    @endforeach
 
-                                        </td>
-                                    </tr>
                                     </tbody>
                                 </table>
                             </div>

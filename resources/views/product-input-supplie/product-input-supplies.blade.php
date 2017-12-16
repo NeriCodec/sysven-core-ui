@@ -50,48 +50,6 @@
                                                     <small class="text-muted"> <span class="text-danger">Agotado</span></small>
                                                 @endif
                                             </td>
-
-                                            {{--@if($porcentage >= 70)--}}
-                                                {{--<td>--}}
-                                                    {{--<span class="text-success">{{ $porcentage }} %</span>--}}
-                                                    {{--<div class="progress">--}}
-                                                        {{--<div class="progress-bar bg-success" role="progressbar"--}}
-                                                             {{--style="width: {{ $porcentage }}%; height: 6px;"--}}
-                                                             {{--aria-valuenow="25" aria-valuemin="0"--}}
-                                                             {{--aria-valuemax="100"></div>--}}
-                                                    {{--</div>--}}
-                                                {{--</td>--}}
-                                            {{--@elseif($porcentage >= 30 && $porcentage < 70)--}}
-                                                {{--<td>--}}
-                                                {{--<span class="text-warning">{{ $porcentage }}--}}
-                                                    {{--%</span>--}}
-                                                    {{--<div class="progress">--}}
-                                                        {{--<div class="progress-bar bg-warning" role="progressbar"--}}
-                                                             {{--style="width: {{ $porcentage }}%; height: 6px;"--}}
-                                                             {{--aria-valuenow="25" aria-valuemin="0"--}}
-                                                             {{--aria-valuemax="100"></div>--}}
-                                                    {{--</div>--}}
-                                                {{--</td>--}}
-                                            {{--@else--}}
-                                                {{--<td>--}}
-                                                {{--<span class="text-danger">{{ $porcentage }}--}}
-                                                    {{--%</span>--}}
-                                                    {{--<div class="progress">--}}
-                                                        {{--<div class="progress-bar bg-danger" role="progressbar"--}}
-                                                             {{--style="width: {{ $porcentage }}%; height: 6px;"--}}
-                                                             {{--aria-valuenow="25" aria-valuemin="0"--}}
-                                                             {{--aria-valuemax="100"></div>--}}
-                                                    {{--</div>--}}
-                                                {{--</td>--}}
-                                            {{--@endif--}}
-
-
-                                            {{--<td>--}}
-                                                {{--{{ $productInputSupplie->quantity_discount}}--}}
-                                                {{--<small class="text-muted">--}}
-                                                    {{--({{ $productInputSupplie->measure }})--}}
-                                                {{--</small>--}}
-                                            {{--</td>--}}
                                             <td>
                                                 {{ $productInputSupplie->quantity}}
                                                 <small class="text-muted">

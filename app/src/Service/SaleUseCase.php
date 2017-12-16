@@ -19,6 +19,12 @@ class SaleUseCase
         $this->saleRepository = $saleRepository;
     }
 
+    public function getAll()
+    {
+        return $this->saleRepository->getAll();
+    }
+
+
     /**
      * removeMoney function.
      * @param $amount
