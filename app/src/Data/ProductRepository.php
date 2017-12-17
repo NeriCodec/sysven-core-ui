@@ -41,18 +41,17 @@ class ProductRepository
 
     public function delete($id)
     {
-        $productCreateRepository = new ProductCreateUseCase(new ProductCreateRepository());
-
-        $success = $productCreateRepository->delete($id);
+        try {
+            $product = Product::find($id);
+            $success = $product->delete();
+        } catch (QueryException $error) {
+            $success = false;
+            //throw new Exception(':: [Error al eliminar el producto] :: ' . $error->getMessage());
+        }
 
         if ($success) {
-            $product = Product::find($id);
-            try {
-                $success = $product->delete();
-            } catch (QueryException $error) {
-                $success = false;
-                //throw new Exception(':: [Error al eliminar el producto] :: ' . $error->getMessage());
-            }
+            $productCreateRepository = new ProductCreateUseCase(new ProductCreateRepository());
+            $success                 = $productCreateRepository->delete($id);
         }
 
         return $success;
@@ -88,9 +87,8 @@ class ProductRepository
     {
         $productEntity = [];
         try {
-            $product          = Product::all()->where('name', '=', $productName)->last();
-            if($product == null)
-            {
+            $product = Product::all()->where('name', '=', $productName)->last();
+            if ($product == null) {
                 return $productEntity;
             }
 

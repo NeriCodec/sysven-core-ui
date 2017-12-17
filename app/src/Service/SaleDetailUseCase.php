@@ -21,6 +21,11 @@ class SaleDetailUseCase
         $this->saleDetailRepository = $saleDetailRepository;
     }
 
+    /**
+     * Obtiene todos los detalles de venta
+     * getAll function.
+     * @return array
+     */
     public function getAll()
     {
         return $this->saleDetailRepository->getAll();
@@ -41,6 +46,16 @@ class SaleDetailUseCase
         }
 
         return $this->saleDetailRepository->add($saleDetailEntity);
+    }
+
+    /**
+     * Incrementa la cantidad de un producto
+     * incrementQuantityOfProductOfSaleDetail function.
+     * @param $saleId
+     */
+    public function incrementQuantityOfProductOfSaleDetail($saleId)
+    {
+        return $this->saleDetailRepository->incrementQuantityOfProductOfSaleDetail($saleId);
     }
 
     /**
@@ -83,17 +98,11 @@ class SaleDetailUseCase
         return -1;
     }
 
-    public function incrementQuantityOfProductOfSaleDetail($saleId)
-    {
-        return $this->saleDetailRepository->incrementQuantityOfProductOfSaleDetail($saleId);
-    }
-
-    public function removeQuantityOfProductOfSaleDetail($saleId)
-    {
-        return $this->saleDetailRepository->removeQuantityOfProductOfSaleDetail($saleId);
-    }
-
-
+    /**
+     * Elimina un detalle venta
+     * delete function.
+     * @param $saleId
+     */
     public function delete($saleId)
     {
         $product = $this->getProductOfSaleDetailById($saleId);
@@ -104,6 +113,17 @@ class SaleDetailUseCase
 
         return $this->saleDetailRepository->delete($saleId);
     }
+
+    /**
+     * Remueve una unidad de la cantidad de un producto
+     * removeQuantityOfProductOfSaleDetail function.
+     * @param $saleId
+     */
+    public function removeQuantityOfProductOfSaleDetail($saleId)
+    {
+        return $this->saleDetailRepository->removeQuantityOfProductOfSaleDetail($saleId);
+    }
+
     /**
      * Verifica si un producto contiene mas de uno.
      * hasMoreOfOne function.
@@ -141,7 +161,11 @@ class SaleDetailUseCase
         return $this->saleDetailRepository->getIdOfSaleDetailByProductId($productId);
     }
 
-
+    /**
+     * Obtiene los detalles de venta por id.
+     * getSaleDetailsById function.
+     * @param $saleId
+     */
     public function getSaleDetailsById($saleId)
     {
         return $this->saleDetailRepository->getSaleDetailsById($saleId);

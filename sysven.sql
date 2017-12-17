@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 26-11-2017 a las 04:16:31
+-- Tiempo de generación: 17-12-2017 a las 05:51:11
 -- Versión del servidor: 10.1.26-MariaDB
 -- Versión de PHP: 7.1.9
 
@@ -39,10 +39,8 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `name`, `price`) VALUES
-(1, 'DarkGreen', 123),
-(2, 'LightSlateGray', 200),
-(3, 'SaddleBrown', 87),
-(4, 'LightSlateGray', 49);
+(1, 'Frappe Pop', 45),
+(2, 'Cafe', 20);
 
 -- --------------------------------------------------------
 
@@ -53,23 +51,19 @@ INSERT INTO `products` (`id`, `name`, `price`) VALUES
 CREATE TABLE `products_inputs_supplies` (
   `id` int(11) NOT NULL,
   `name` varchar(45) DEFAULT NULL,
-  `price` double DEFAULT NULL,
+  `quantity_discount` double DEFAULT NULL,
   `amount` double DEFAULT NULL,
   `measure` varchar(45) DEFAULT NULL,
+  `quantity` int(11) DEFAULT NULL,
   `supplies_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- --------------------------------------------------------
-
 --
--- Estructura de tabla para la tabla `product_inputs`
+-- Volcado de datos para la tabla `products_inputs_supplies`
 --
 
-CREATE TABLE `product_inputs` (
-  `id` int(11) NOT NULL,
-  `name` varchar(45) DEFAULT NULL,
-  `measure` varchar(40) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+INSERT INTO `products_inputs_supplies` (`id`, `name`, `quantity_discount`, `amount`, `measure`, `quantity`, `supplies_id`) VALUES
+(1, 'Bote de pop', 600, 150, 'Onza(s)', 600, 1);
 
 -- --------------------------------------------------------
 
@@ -79,9 +73,18 @@ CREATE TABLE `product_inputs` (
 
 CREATE TABLE `product_inputs_use` (
   `id` int(11) NOT NULL,
-  `product_inputs_id` int(11) NOT NULL,
-  `products_id` int(11) NOT NULL
+  `products_id` int(11) NOT NULL,
+  `product_input` varchar(45) DEFAULT NULL,
+  `quantity` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `product_inputs_use`
+--
+
+INSERT INTO `product_inputs_use` (`id`, `products_id`, `product_input`, `quantity`) VALUES
+(2, 2, 'Onza(s) de Bote de pop', 1),
+(3, 2, 'Onza(s) de Bote de pop', 1);
 
 -- --------------------------------------------------------
 
@@ -93,6 +96,7 @@ CREATE TABLE `sales` (
   `id` int(11) NOT NULL,
   `total` double DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
+  `status` varchar(45) DEFAULT NULL,
   `users_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -100,25 +104,26 @@ CREATE TABLE `sales` (
 -- Volcado de datos para la tabla `sales`
 --
 
-INSERT INTO `sales` (`id`, `total`, `created_at`, `users_id`) VALUES
-(1, NULL, '2006-10-23 12:04:10', 1),
-(2, 28, '1994-04-11 12:00:08', 1),
-(3, 20, '1986-05-28 05:22:20', 1),
-(4, 11, '1981-06-17 01:57:21', 1),
-(5, 10, '1996-04-08 22:48:56', 1),
-(6, 41, '2006-04-02 04:41:55', 1),
-(7, 80, '1979-02-26 04:36:28', 1),
-(8, 14, '1992-01-28 14:04:38', 1),
-(9, 47, '2009-09-09 20:26:03', 1),
-(10, 85, '2009-04-14 14:34:24', 1),
-(11, 13, '2001-05-02 11:34:48', 1),
-(12, 86, '1970-07-05 11:05:31', 1),
-(13, 46, '2015-11-13 18:22:37', 1),
-(14, 20, '2008-10-18 01:39:56', 1),
-(15, 22, '1972-05-11 17:20:23', 1),
-(16, 83, '2003-08-04 05:14:27', 1),
-(17, 35, '1974-08-28 15:21:26', 1),
-(18, 85, '2001-06-10 23:16:55', 1);
+INSERT INTO `sales` (`id`, `total`, `created_at`, `status`, `users_id`) VALUES
+(2, 0, '2017-12-15 15:12:48', NULL, 1),
+(3, 0, '2017-12-15 15:12:56', NULL, 1),
+(4, 0, '2017-12-15 15:12:23', NULL, 1),
+(5, 0, '2017-12-15 15:12:50', NULL, 1),
+(6, 0, '2017-12-15 15:12:06', NULL, 1),
+(7, 0, '2017-12-15 16:12:10', NULL, 1),
+(8, 0, '2017-12-15 16:12:17', NULL, 1),
+(9, 45, '2017-12-15 16:12:29', NULL, 1),
+(10, 0, '2017-12-15 16:12:48', NULL, 1),
+(11, 90, '2017-12-15 16:12:01', NULL, 1),
+(12, 0, '2017-12-15 16:12:13', NULL, 1),
+(13, 45, '2017-12-15 16:12:25', NULL, 1),
+(14, 0, '2017-12-15 16:12:31', NULL, 1),
+(15, 0, '2017-12-15 16:12:38', NULL, 1),
+(16, 0, '2017-12-15 16:12:49', NULL, 1),
+(17, 45, '2017-12-15 16:12:01', NULL, 1),
+(18, 0, '2017-12-15 20:12:19', NULL, 1),
+(19, 0, '2017-12-15 20:12:10', NULL, 1),
+(20, 0, '2017-12-15 20:12:23', NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -139,11 +144,16 @@ CREATE TABLE `sales_details` (
 --
 
 INSERT INTO `sales_details` (`id`, `sales_id`, `products_id`, `quantity`, `subtotal`) VALUES
-(2, 1, 2, 63, 80),
-(3, 1, 2, 5, 13),
-(4, 1, 2, 61, 19),
-(5, 1, 3, 25, 94),
-(6, 2, 3, 44, 10);
+(1, 5, 1, 1, 45),
+(2, 6, 1, 1, 45),
+(3, 7, 1, 2, 90),
+(4, 8, 1, 1, 45),
+(5, 10, 1, 2, 90),
+(6, 12, 1, 1, 45),
+(7, 16, 1, 1, 45),
+(8, 18, 1, 1, 45),
+(9, 19, 1, 1, 45),
+(10, 20, 1, 1, 45);
 
 -- --------------------------------------------------------
 
@@ -156,6 +166,13 @@ CREATE TABLE `supplies` (
   `name` varchar(45) DEFAULT NULL,
   `address` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `supplies`
+--
+
+INSERT INTO `supplies` (`id`, `name`, `address`) VALUES
+(1, 'Juan Ramirez', 'Lago Winnipeg 401 603, Cd. de México');
 
 -- --------------------------------------------------------
 
@@ -175,7 +192,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `user`, `password`, `created_at`) VALUES
-(1, 'dejon.bahringer', '$2y$10$3LQhi95Q1MU7wa1djNpZ0./pjQ8xXOxvncK7ZNLxDm.MhPdDfOMSe', '1991-11-26 02:36:24');
+(1, 'neri', '123', '2017-12-15 09:45:27');
 
 --
 -- Índices para tablas volcadas
@@ -195,17 +212,10 @@ ALTER TABLE `products_inputs_supplies`
   ADD KEY `fk_products_inputs_supplies_supplies1_idx` (`supplies_id`);
 
 --
--- Indices de la tabla `product_inputs`
---
-ALTER TABLE `product_inputs`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indices de la tabla `product_inputs_use`
 --
 ALTER TABLE `product_inputs_use`
-  ADD PRIMARY KEY (`id`,`product_inputs_id`,`products_id`),
-  ADD KEY `fk_product_inputs_use_product_inputs1_idx` (`product_inputs_id`),
+  ADD PRIMARY KEY (`id`,`products_id`),
   ADD KEY `fk_product_inputs_use_products1_idx` (`products_id`);
 
 --
@@ -243,37 +253,37 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT de la tabla `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `products_inputs_supplies`
 --
 ALTER TABLE `products_inputs_supplies`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT de la tabla `product_inputs`
+-- AUTO_INCREMENT de la tabla `product_inputs_use`
 --
-ALTER TABLE `product_inputs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `product_inputs_use`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `sales`
 --
 ALTER TABLE `sales`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT de la tabla `sales_details`
 --
 ALTER TABLE `sales_details`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `supplies`
 --
 ALTER TABLE `supplies`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `users`
@@ -295,7 +305,6 @@ ALTER TABLE `products_inputs_supplies`
 -- Filtros para la tabla `product_inputs_use`
 --
 ALTER TABLE `product_inputs_use`
-  ADD CONSTRAINT `fk_product_inputs_use_product_inputs1` FOREIGN KEY (`product_inputs_id`) REFERENCES `product_inputs` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_product_inputs_use_products1` FOREIGN KEY (`products_id`) REFERENCES `products` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --

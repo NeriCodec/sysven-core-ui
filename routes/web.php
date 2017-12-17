@@ -4,15 +4,11 @@
  * @message Rutas para el de bienvenida
  */
 Route::get('/', function () {
-    return view('welcome');
+    return view('template.dashboard');
 });
 
 Route::get('/dashboard', function () {
     return view('template.dashboard');
-});
-
-Route::get('/default', function () {
-    return view('page-wrapper-default');
 });
 
 /**
