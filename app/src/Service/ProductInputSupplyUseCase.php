@@ -45,4 +45,14 @@ class ProductInputSupplyUseCase
     {
         // TODO: Implement delete() method.
     }
+
+    public function getInputProductByName($name_input)
+    {
+        return $this->productInputSupplieRepository->getInputProductByName($name_input);
+    }
+
+    public function updateQuantityOfInputProductById($id, $quantity)
+    {
+        return $this->productInputSupplieRepository->updateQuantityOfInputProductById($id, $quantity);
+    }
 }

@@ -39,6 +39,45 @@ class ProductRepository
         return $this->registerProductWithInputs($product, $productEntity);
     }
 
+    private function registerProductWithInputs($product, $productEntity)
+    {
+        $product->name  = $productEntity->getName();
+        $product->price = $productEntity->getPrice();
+
+        try {
+            $success = $product->save();
+        } catch (QueryException $error) {
+            $success = false;
+            //throw new Exception(':: [Error al guardar el producto] :: ' . $error->getMessage());
+        }
+
+        if ($productEntity->inputs == null) {
+            return $success;
+        }
+
+        if ($success) {
+            try {
+                $productCreateRepository = new ProductCreateUseCase(new ProductCreateRepository());
+                foreach ($productEntity->inputs as $input) {
+                    $productCreate = new ProductCreateEntity(
+                        $product->id,
+                        $input['product_input'],
+                        $input['name_input'],
+                        $input['quantity']
+                    );
+
+                    $success = $productCreateRepository->create($productCreate);
+                }
+            } catch (QueryException $error) {
+                $success = false;
+                //$this->delete($product->id);
+                //throw new Exception(':: [Error al guardar el producto] :: ' . $error->getMessage());
+            }
+        }
+
+        return $success;
+    }
+
     public function delete($id)
     {
         try {
@@ -111,45 +150,6 @@ class ProductRepository
         }
 
         return $productEntity;
-    }
-
-
-    private function registerProductWithInputs($product, $productEntity)
-    {
-        $product->name  = $productEntity->getName();
-        $product->price = $productEntity->getPrice();
-
-        try {
-            $success = $product->save();
-        } catch (QueryException $error) {
-            $success = false;
-            //throw new Exception(':: [Error al guardar el producto] :: ' . $error->getMessage());
-        }
-
-        if ($productEntity->inputs == null) {
-            return $success;
-        }
-
-        if ($success) {
-            try {
-                $productCreateRepository = new ProductCreateUseCase(new ProductCreateRepository());
-                foreach ($productEntity->inputs as $input) {
-                    $productCreate = new ProductCreateEntity(
-                        $product->id,
-                        $input['product_input'],
-                        $input['quantity']
-                    );
-
-                    $success = $productCreateRepository->create($productCreate);
-                }
-            } catch (QueryException $error) {
-                $success = false;
-                //$this->delete($product->id);
-                //throw new Exception(':: [Error al guardar el producto] :: ' . $error->getMessage());
-            }
-        }
-
-        return $success;
     }
 
     public function search($productName)

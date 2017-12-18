@@ -4,7 +4,7 @@ $(document).ready(function () {
 
     $('#button-add-input').click(function () {
 
-        var product_input = $('#measure').val();
+        var product_input = $('#measure').val().split("-");
         var quantity = $('#quantity').val();
 
         if (quantity === "") {
@@ -15,8 +15,9 @@ $(document).ready(function () {
         }
         else {
             var myInputs = $('#my-inputs');
-            myInputs.append('<input type="hidden" id="product-input-' + count + '" name="inputs[' + count + '][product_input]" value="' + product_input + '" />');
+            myInputs.append('<input type="hidden" id="product-input-' + count + '" name="inputs[' + count + '][product_input]" value="' + product_input[0] + ' de ' + product_input[1] + '" />');
             myInputs.append('<input type="hidden" id="quantity-input-' + count + '" name="inputs[' + count + '][quantity]" value="' + quantity + '" />');
+            myInputs.append('<input type="hidden" id="name-input-' + count + '" name="inputs[' + count + '][name_input]" value="' + product_input[1] + '" />');
             myInputs.append('<button type="button" id="button-' + count + '" style="margin: 5px 5px 5px 5px;" id="button-add-input" class="btn btn-primary" data-val="' + count + '">' + quantity + ' ' + product_input + '</button> ');
 
             $('#button-' + count).off('click');

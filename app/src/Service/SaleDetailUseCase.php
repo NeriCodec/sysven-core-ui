@@ -5,6 +5,8 @@ namespace App\src\Service;
 
 use App\src\Common\Entities\SaleDetailEntity;
 use App\src\Common\Interfaces\ISaleDetailRepository;
+use App\src\Data\ProductCreateRepository;
+use App\src\Data\ProductInputSupplyRepository;
 
 class SaleDetailUseCase
     implements ISaleDetailRepository
@@ -39,6 +41,8 @@ class SaleDetailUseCase
      */
     public function add(SaleDetailEntity $saleDetailEntity)
     {
+        $this->updateProductInputSupply($saleDetailEntity->getProductsId(), '-');
+
         $existsProduct = $this->existsProductIntoSaleDetail($saleDetailEntity->getSalesId(), $saleDetailEntity->getProductsId());
 
         if ($existsProduct) {
@@ -106,6 +110,7 @@ class SaleDetailUseCase
     public function delete($saleId)
     {
         $product = $this->getProductOfSaleDetailById($saleId);
+        $this->updateProductInputSupply($product->productId, '+');
 
         if ($this->hasMoreThanOne($product)) {
             return $this->removeQuantityOfProductOfSaleDetail($saleId);
@@ -132,8 +137,7 @@ class SaleDetailUseCase
      */
     private function hasMoreThanOne($product)
     {
-        if ($product->quantity >= 2)
-        {
+        if ($product->quantity >= 2) {
             return true;
         }
 
@@ -169,6 +173,28 @@ class SaleDetailUseCase
     public function getSaleDetailsById($saleId)
     {
         return $this->saleDetailRepository->getSaleDetailsById($saleId);
+    }
+
+    /**
+     * Actualiza la cantidad de un insumo del proveedor
+     * updateProductInputSupply function.
+     * @param $id (del producto)
+     * @param $operator (resta o suma)
+     */
+    private function updateProductInputSupply($id, $operator)
+    {
+        // Obtener los insumos de un producto
+        $productCreateUseCase = new ProductCreateUseCase(new ProductCreateRepository());
+        $inputsProduct        = $productCreateUseCase->getAllInputsOfProduct($id);
+        // Obtener los insumos del proveedor por nombre
+        $productInputSupply = new ProductInputSupplyUseCase(new ProductInputSupplyRepository());
+        // Descontar los insumos de Insumos del proveedor
+        foreach ($inputsProduct as $inputProduct) {
+            $myProductInputSupply = $productInputSupply->getInputProductByName($inputProduct->name_input);
+            $operator == '-' ? $newQuantity = $myProductInputSupply->quantity - $inputProduct->quantity : $newQuantity = $myProductInputSupply->quantity + $inputProduct->quantity;
+            // Actualizar los insumos del proveedor con las nuevas cantidades
+            $productInputSupply->updateQuantityOfInputProductById($myProductInputSupply->id, $newQuantity);
+        }
     }
 
 }

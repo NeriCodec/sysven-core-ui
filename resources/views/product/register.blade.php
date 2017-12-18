@@ -58,7 +58,9 @@
                                         <div class="col-sm-12">
                                             <select class="form-control form-control-line" name="measure" id="measure">
                                                 @foreach($productInputs as $productInput)
-                                                    <option>{{ $productInput->measure }} de {{ $productInput->name }}</option>
+                                                    <option value="{{ $productInput->measure .'-'. $productInput->name }}">
+                                                        {{ $productInput->measure }} de {{ $productInput->name }}
+                                                    </option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -77,10 +79,7 @@
                                     </div>
                                 </div>
                             </div>
-                            {{--<textarea class="form-control form-control-line" name="textarea-inputs" id="textarea-inputs"--}}
-                            {{--rows="5" disabled>--}}
 
-                            {{--</textarea>--}}
                         </div>
                     </div>
                     <!-- ============================================================== -->

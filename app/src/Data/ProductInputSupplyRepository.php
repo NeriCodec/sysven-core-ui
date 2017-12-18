@@ -4,9 +4,10 @@ namespace App\src\Data;
 
 
 use App\ProductInputSupplie;
-use Illuminate\Support\Facades\DB;
 use App\src\Common\Entities\ProductInputSupplyEntity;
 use App\src\Common\Interfaces\IProductInputSupplyRepository;
+use Exception;
+use Illuminate\Database\QueryException;
 
 
 class ProductInputSupplyRepository
@@ -61,4 +62,37 @@ class ProductInputSupplyRepository
         // TODO: Implement delete() method.
     }
 
+    public function getInputProductByName($name_input)
+    {
+        try {
+            $product = ProductInputSupplie::all()->where('name', '=', $name_input)->last();
+        } catch (QueryException $error) {
+            $product = [];
+            //throw new Exception(':: [Error al eliminar el producto] :: ' . $error->getMessage());
+        } catch (Exception $exception) {
+            throw new Exception($exception->getMessage());
+        }
+
+        return $product;
+    }
+
+    public function updateQuantityOfInputProductById($id, $quantity)
+    {
+        try {
+            $productInputSupplie           = ProductInputSupplie::find($id);
+            $productInputSupplie->quantity = $quantity;
+
+            $success = $productInputSupplie->save();
+
+            //dd($success);
+        } catch (QueryException $error) {
+            $success = false;
+            //throw new Exception(':: [Error al obtener los productos] :: ' . $error->getMessage());
+        } catch (Exception $exception) {
+            throw new Exception($exception->getMessage());
+        }
+
+
+        return $success;
+    }
 }

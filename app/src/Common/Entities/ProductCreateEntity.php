@@ -15,6 +15,11 @@ class ProductCreateEntity
     private $product_input;
 
     /**
+     * @var $name_input
+     */
+    private $name_input;
+
+    /**
      * @var $quantity
      */
     private $quantity;
@@ -25,10 +30,11 @@ class ProductCreateEntity
      * @param $producto_input
      * @param $quantity
      */
-    public function __construct($products_id, $producto_input, $quantity)
+    public function __construct($products_id, $producto_input, $name_input, $quantity)
     {
         $this->products_id   = $products_id;
         $this->product_input = $producto_input;
+        $this->name_input    = $name_input;
         $this->quantity      = $quantity;
     }
 
@@ -46,6 +52,14 @@ class ProductCreateEntity
     public function getProductInput()
     {
         return $this->product_input;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNameInput()
+    {
+        return $this->name_input;
     }
 
     /**

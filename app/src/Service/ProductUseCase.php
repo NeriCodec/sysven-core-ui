@@ -28,7 +28,9 @@ class ProductUseCase
      */
     public function create(ProductEntity $productEntity)
     {
-        if (count($productEntity->inputs) <= 0) {
+        $inputsEmpty = 0;
+
+        if (count($productEntity->inputs) == $inputsEmpty) {
             return false;
         }
 

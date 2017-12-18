@@ -33,6 +33,7 @@
                                         <th>No. venta</th>
                                         <th>Total</th>
                                         <th>Fecha</th>
+                                        <th>Cancelar</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -44,6 +45,14 @@
                                             <td>$ {{ $sale->total }} - Quetzales</td>
                                             <td>
                                                 {{ $sale->created_at }}
+                                            </td>
+                                            <td>
+                                                <form action="" method="post">
+                                                    <button type="button" class="btn btn-danger">
+                                                        <span class="fa fa-window-close"></span>
+                                                    </button>
+                                                </form>
+
                                             </td>
                                         </tr>
                                     @endforeach

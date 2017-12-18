@@ -16,6 +16,7 @@ class ProductCreateRepository
 
         $productCreate->products_id   = $productCreateEntity->getProductsId();
         $productCreate->quantity      = $productCreateEntity->getQuantity();
+        $productCreate->name_input    = $productCreateEntity->getNameInput();
         $productCreate->product_input = $productCreateEntity->getProductInput();
 
         return $productCreate->save();
